@@ -1,4 +1,4 @@
- var myData = ["a", 4, 1, "b", 6, 2, 8, 9, "z"];
+var myData = ["a", 4, 1, "b", 6, 2, 8, 9, "z"];
       
 var p = d3.select("body") 
     //modified selectAll to  select all span
@@ -22,3 +22,17 @@ var p = d3.select("body")
             return "blue";
                 }
         });
+
+ var myDataNew = [3, 4]; 
+ 
+var p = d3.select("body") 
+                //select all the p tags and add in the data binded from the 
+                //array myDataNew
+                .selectAll("p") 
+                .data(myDataNew) 
+                .text(function (d, i) { 
+                    return d; 
+                })
+            
+//use exit().remove() to enter exit status and remove the p based on the updated data       
+p.exit().remove();
