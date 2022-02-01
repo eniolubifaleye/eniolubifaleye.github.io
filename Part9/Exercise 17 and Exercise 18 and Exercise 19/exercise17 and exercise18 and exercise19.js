@@ -1,11 +1,11 @@
 //the same data values as the const data array
-let barData = "https://raw.githubusercontent.com/eniolubifaleye/F21DV/main/Exercise18File.csv"
+let barData = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/Exercise18File.csv"
 //const data = [50, 400, 300, 900, 250, 1000]
 
 
 //put the whole bar chart into a function called barChart
 function barChart(chartData){
-    d3.csv(barData, function(data) { 
+    d3.csv(chartData, function(data) { 
 
         //return the data loaded in by csv callback function
         return data;
