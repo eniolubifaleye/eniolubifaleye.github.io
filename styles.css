@@ -3,3 +3,8 @@ div{
     margin: auto;
     height: 40px;
 }
+
+body{
+    margin: auto;
+    text-align: center;
+}
