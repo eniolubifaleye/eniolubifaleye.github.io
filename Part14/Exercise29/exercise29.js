@@ -65,4 +65,24 @@ svg.append("path")
    .attr("d", d3.line() 
                 .x(function(d) { return x(d.x)  }) 
                 .y(function(d) { return y(d.y)  }) 
-   ); 
+   );
+
+//Added dots on the line based on its data points 
+var dot = svg.selectAll("g")
+                .data(data)
+                .enter()
+                .append("g");
+
+//select all dots which are to be entered and appended as circles
+//with each dot being binded to the data from data array
+//the circles atrributes are then set below
+dot.selectAll("dot") 
+   .data(data)  
+   .enter() 
+   .append("circle") 
+   .attr("cx", function (d) { return x(d.x) } ) 
+   .attr("cy", function (d) { return y(d.y) } ) 
+   .attr("r", 4)
+   //changed the colour of thhe dots based on the d3 colour method and the data
+   //x value
+   .style("fill", function(d) { return myColor1(d.x)});
