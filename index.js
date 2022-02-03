@@ -43,5 +43,55 @@ document.getElementById("link7").onmousedown = function(event) {
 document.getElementById("link8").onmousedown = function(event) {
     if (event.which == 3) {
         window.open("./Part5/Exercise10/exercise10.html")
+    
+    
+    }
+}
+
+document.getElementById("link9").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part6/Exercise11/exercise11.html")
+    }
+}
+
+document.getElementById("link10").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part6/Exercise12/exercise12.html")
+    }
+}
+
+document.getElementById("link11").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part6/Exercise13/exercise13.html")
+    }
+}
+
+document.getElementById("link12").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part7/Exercise14 and Exercise15/exercise14 and exercise15.html")
+    }
+}
+
+document.getElementById("link13").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part8/Exercise16/exercise16.html")
+    }
+}
+
+document.getElementById("link14").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part9/Exercise17 and Exercise18 and Exercise19/exercise17 and exercise18 and exercise19.html")
+    }
+}
+
+document.getElementById("link15").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part10/Exercise20/exercise20.html")
+    }
+}
+
+document.getElementById("link16").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part10/Exercise21/exercise21.html")
     }
 }
