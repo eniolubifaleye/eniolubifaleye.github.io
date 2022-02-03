@@ -1,7 +1,7 @@
 div{
     text-align: center;
     margin: auto;
-    height: 40px;
+    height: 60px;
 }
 
 body{
@@ -9,8 +9,25 @@ body{
     text-align: center;
 }
 
-button{
-  background-color: white;
-  color: black;
-  border: 2px solid black; /* Green */
+.button{
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 4px;
+    transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: black;
+  color: white;
+}
+
+a:visited{
+    color: black;
+    text-decoration: none;
+}
+
+a:link{
+    color: black;
+    text-decoration: none;
 }
