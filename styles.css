@@ -1,26 +1,21 @@
+
+/* CSS for div containing each link to an exercise */
 div{
     text-align: center;
-    margin: auto;
-    height: 60px;
+    height: 200px;
+    padding-bottom: 20px;
 }
 
 body{
     margin: auto;
     text-align: center;
+    /* altering the default font */
+    /* https://www.w3schools.com/css/tryit.asp?filename=trycss_font-family */
+    font-family: "Lucida Console", "Courier New", monospace;
 }
 
-.button{
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-    border-radius: 4px;
-    transition-duration: 0.4s;
-}
-
-.button:hover {
-  background-color: black;
-  color: white;
-}
+/* CSS for Links */
+/* https://www.w3schools.com/css/css3_buttons.asp */
 
 a:visited{
     color: black;
@@ -30,4 +25,20 @@ a:visited{
 a:link{
     color: black;
     text-decoration: none;
+}
+
+/* added hover animation to links to show that they are active when hoverd over */
+a:hover{
+    transition: 0.4s;
+    color: white;
+    background-color: black;
+    /* added shadow on hover to show css link can be clickable, gives the impression that the css link is a button */
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/* adding a border to each css link */
+a{
+    border-radius: 4px;
+    padding: 12px 28px;
+    border: 2px black solid;
 }
