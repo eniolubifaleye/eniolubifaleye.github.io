@@ -95,3 +95,39 @@ document.getElementById("link16").onmousedown = function(event) {
         window.open("./Part10/Exercise21/exercise21.html")
     }
 }
+
+document.getElementById("link17").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part12/Exercise22 and Exercise23 and Exercise24/exercise22 and exercise23 and exercise24.html")
+    }
+}
+
+document.getElementById("link18").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part13/Exercise25 and Exercise26 and Exercise27/exercise25 and exercise26 and exercise27.html")
+    }
+}
+
+document.getElementById("link19").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part14/Exercise28/exercise28.html")
+    }
+}
+
+document.getElementById("link20").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part14/Exercise29/exercise29.html")
+    }
+}
+
+document.getElementById("link21").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part15/Exercise30 and Exercise31/exercise30 and exercise31.html")
+    }
+}
+
+document.getElementById("link22").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Part16/Exercise32/exercise32.html")
+    }
+}
