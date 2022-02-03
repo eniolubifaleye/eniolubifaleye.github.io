@@ -7,7 +7,7 @@ newspan.text('hello');
 let count1 = ['1','2','3','4', '5', '6', '7', '8', '9', '10'];
     
 //for loop looping through the length of count array
-for (var i = 0; i <= count1.length; i++) {
+for (var i = 1; i <= count1.length; i++) {
     //append a new div to the body
     var newdiv = d3.select("body").append("div");
         
