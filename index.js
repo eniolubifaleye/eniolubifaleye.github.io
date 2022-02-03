@@ -1,3 +1,5 @@
+//https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
+
 document.getElementById("link1").onmousedown = function(event) {
     if (event.which == 3) {
         window.open("./Part2/Exercise1 and Exercise2/exercise1 and exercise2.html")
