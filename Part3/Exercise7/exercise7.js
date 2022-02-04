@@ -20,12 +20,12 @@ let paragraph = d3.select("body")
 
 //added color transition to change the color of the text based on the value in the data array
 paragraph.transition()
-   					.duration(4000)
-            .style("color", function(d, i) { 
-                    if ( d < 100) { 
-                        return "yellow"; 
-                    }
-                    else{
-                    	return "red";
-                    }
-                });
+    .duration(4000)
+    .style("color", function(d, i) { 
+        if ( d < 100) { 
+            return "yellow"; 
+        }
+        else{
+            return "red";
+            }
+    });
