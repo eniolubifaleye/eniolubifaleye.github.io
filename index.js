@@ -82,7 +82,7 @@ document.getElementById("link13").onmousedown = function(event) {
 
 document.getElementById("link14").onmousedown = function(event) {
     if (event.which == 3) {
-        window.open("./Part9/Exercise17 and Exercise18 and Exercise19/exercise17 and exercise18 and exercise19.html")
+        window.open("./Part9/Exercise 17 and Exercise 18 and Exercise 19/exercise17 and exercise18 and exercise19.html")
     }
 }
 
