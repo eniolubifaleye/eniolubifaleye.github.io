@@ -73,10 +73,18 @@ function svgScene(){
       			circle.data(shapeFilter2)
             	//call exit().remove() to enter exit status and remove the circle from the svg
               //it is removed since the updated data has no data so a circle cant be drawn
-      				.exit().remove();
+      				.exit()
+              
+              //transition in the exit() section to reduce opacity to 0 like the sun has set
+              .transition() 
+              .duration(3000)
+              //transformed the position of the y so that sunset animation can be achieved
+              .attr("transform", "translate(0,150)")
+              .style("opacity", 0)
+              .remove();
       
       //the delay was for 4000 ms which is 4 seconds 
-			}, 4000);
+			}, 2000);
      });
      
 }     
