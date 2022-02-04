@@ -10,7 +10,7 @@ const svg = d3.select("body")
             .attr("width", width) 
             .attr("height", height); 
  
-const g = svg.selectAll("g") 
+var g = svg.selectAll("g") 
             .data(data) 
             .enter() 
             .append("g") 
@@ -83,3 +83,28 @@ g.append("text")
  .text(function(d) { 
     return d; 
  });
+
+//update function to remove the svg elements
+ function updateEnterRemove(){
+ 
+ //create a new empty array to hold the updated data set based on the
+ //old data set getting popped
+ 		let newArray = [];
+    data.pop();
+    
+    
+    //for loop to push contents of popped data array into newArray
+    for (var i = 0; i < data.length; i++){
+    		newArray.push(data[i]);
+    }
+   
+   //console log to see new Array reduce
+ 		console.log(newArray)
+   
+   //update exit to remove the svg elements as the newArray is reducing
+   d3.select("body")
+   .selectAll("g")
+   .data(newArray)
+   .exit()
+   .remove();
+ }
