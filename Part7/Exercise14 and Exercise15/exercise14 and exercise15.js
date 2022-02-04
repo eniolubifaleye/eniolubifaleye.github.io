@@ -20,12 +20,8 @@ d3.csv(heartfailurecsv, function(data) {
     let ageArray = [];
 		let countArray = [];
     
-    let rangeArray = [
-				{"Range":"Age Range 1-30"}, 
-				{"Range":"Age Range 31-40"}, 
-                  {"Range":"Age Range 41-60"},
-                  {"Range":"Age Range 61-100"}
-                  ];
+    //array to hold the range array of ages for the counts
+    let rangeArray = ["Age Range 61-100", "Age Range 41-60", "Age Range 31-40", "Age Range 1-30"];
     
     //for lop to loop through the entire dataset and add all the ages to the ageArray
     for(var j = 0; j < d.length; j++){
@@ -58,21 +54,21 @@ d3.csv(heartfailurecsv, function(data) {
    countArray.push(count61100);
  
  
-//changed the width and scale factor from width:200, scaleFactor:10 to width:400, scaleFactor:2
+//changed the width and scale factor from width:200, scaleFactor:10 to width:500, scaleFactor:2
 //this is to allow for the heartfailure csv to be correctly displayed
 //var width = 200; 
 //var scaleFactor = 10; 
 
-var width = 400;
+var width = 450;
 var scaleFactor = 2;
-//altered barHeight to 40 from 20
 var barHeight   = 40; 
  
 var graph = d3.select("body") 
       .append("svg") 
-      .attr("width", width) 
-      .attr("height", barHeight * countArray.length); 
-      
+      .attr("width", width)
+      .style("border", "2px solid black")
+      //change the height of the svg container to allow for x axis
+      .attr("height", barHeight * countArray.length + 80); 
  
 var bar = graph.selectAll("g") 
       //.data(data)
@@ -81,8 +77,9 @@ var bar = graph.selectAll("g")
       .enter() 
       .append("g") 
       .attr("transform", function(d, i) {
-      //changed the starting position of the bar by translating the position + 20 px
-        return "translate(10," + i * barHeight + ")"; 
+      //changed the starting position of the bar by translating the x position + 130 px
+      //and y position + 20px
+        return "translate(130," + ((i * barHeight) + 20) + ")"; 
       }); 
             
 bar.append("rect") 
@@ -103,16 +100,67 @@ bar.append("rect")
   
   });
  
-bar.append("text") 
-  .attr("x", function(d) { return (d*scaleFactor); }) 
+bar.append("text")
+	//altered the text position to just past the bar so that all text values can be viewed properly
+  .attr("x", function(d) { return (d*scaleFactor + 7); }) 
   .attr("y", barHeight / 2) 
   .attr("dy", ".35em") 
   .text(function(d) { return d; });
   
-//print the ranges for the individual bars to the console  
-for(var i = 0; i < rangeArray.length; i++){
-		console.log(rangeArray[i].Range);
-}
+
+//appending the axis after bar has been appended
+//domain is 0 to max of countArray
+//range is 0 to max value in countArray * scaleFactor
+var xscale = d3.scaleLinear() 
+    .domain([0, d3.max(countArray)]) 
+    .range([0, d3.max(countArray) * scaleFactor]);
+    
+//used scaleBand() to add textual axis text for each bar graph
+//set the domain as rangeArray
+var yscale = d3.scaleBand()
+        .domain(rangeArray)
+        //height of y axis changed to barHeight * data.length
+        .range([ barHeight * countArray.length, 0]);
+
+//add x and y axis scales to x and y axis with axisBottom and axisLeft        
+var x_axis = d3.axisBottom() 
+        .scale(xscale);
+        
+var y_axis = d3.axisLeft() 
+        .scale(yscale);
+
+//append the y axis to the svg with a translate of x = 130 and y = 20 
+//to move the y axis more centre of the svg 
+graph.append("g") 
+       .attr("transform", "translate(130, 20)") 
+       .call(y_axis);        
+
+//xAxisTranslate var which was altered to + 100 instead of + 10 to move the xAxis down 100px
+var xAxisTranslate = barHeight * countArray.length/2 + 100 ; 
+
+//move xAxis along x axis 130px
+graph.append("g") 
+            .attr("transform", "translate(130, " + xAxisTranslate  +")") 
+            .call(x_axis)
+            
+// add x and y axis labels 
+//x label positioning
+graph.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", (width / 2) + 130) 
+    .attr("y", barHeight + 180)
+    .text("Number of people with heart failure");          
+ 
+//y label positioning
+graph.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", 8)
+    .attr("x", -60)
+    .attr("dy", "1em")
+    .attr("transform", "rotate(-90)")
+    .text("Age Range (years)");
 
  });
  
