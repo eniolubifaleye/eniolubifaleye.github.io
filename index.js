@@ -176,3 +176,9 @@ document.getElementById("link30").onmousedown = function(event) {
     }
 }
 
+document.getElementById("link31").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Lab2/Part3/Exercise11/lab2exercise11.html")
+    }
+}
+
