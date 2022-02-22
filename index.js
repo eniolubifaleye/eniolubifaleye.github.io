@@ -229,3 +229,9 @@ document.getElementById("link39").onmousedown = function(event) {
         window.open("./Lab2/Part6/Exercise26/lab2exercise26.html")
     }
 }
+
+document.getElementById("link40").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Lab2/Part6/Exercise27/lab2exercise27.html")
+    }
+}
