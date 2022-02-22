@@ -146,4 +146,16 @@ document.getElementById("link25").onmousedown = function(event) {
     }
 }
 
+document.getElementById("link26").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Lab2/Part2/Exercise4/lab2exercise4.html")
+    }
+}
+
+document.getElementById("link27").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Lab2/Part2/Exercise5/lab2exercise5.html")
+    }
+}
+
 
