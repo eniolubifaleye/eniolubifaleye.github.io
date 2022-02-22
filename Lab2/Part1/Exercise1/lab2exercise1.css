@@ -1,0 +1,33 @@
+.pulse {
+    -webkit-transform: scale(1);
+    -webkit-transform-origin: 50% 50%;
+    transform: scale(1);
+    transform-origin: 50% 50%;
+  }
+
+.pulse:hover {
+    -webkit-animation-name: pulsar;
+    /* changed the duration to 4 seconds to be more visible */
+    -webkit-animation-duration: 4s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    animation-name: pulsar;
+
+    /* changed the duration to 4 seconds to be more visible */
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+  }
+
+@keyframes pulsar {
+    from {
+      fill: red
+    }
+
+    to {
+      fill: red transform: scale(2, 2);
+      transform-origin: 50% 50%;
+    }
+  }
