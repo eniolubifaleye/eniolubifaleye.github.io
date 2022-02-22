@@ -158,4 +158,8 @@ document.getElementById("link27").onmousedown = function(event) {
     }
 }
 
-
+document.getElementById("link28").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Lab2/Part3/Exercise6 and Exercise7 and Exercise8/lab2exercise6 and lab2exercise7 and lab2exercise8.html")
+    }
+}
