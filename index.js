@@ -140,3 +140,10 @@ document.getElementById("link23").onmousedown = function(event) {
     }
 }
 
+document.getElementById("link25").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Lab2/Part2/Exercise3/lab2exercise3.html")
+    }
+}
+
+
