@@ -169,3 +169,10 @@ document.getElementById("link29").onmousedown = function(event) {
         window.open("./Lab2/Part3/Exercise9/lab2exercise9.html")
     }
 }
+
+document.getElementById("link30").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Lab2/Part3/Exercise10/lab2exercise10.html")
+    }
+}
+
