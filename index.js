@@ -136,7 +136,7 @@ document.getElementById("link22").onmousedown = function(event) {
 
 document.getElementById("link23").onmousedown = function(event) {
     if (event.which == 3) {
-        window.open(".Lab2/Part1/Exercise1/lab2exercise1.html")
+        window.open("./Lab2/Part1/Exercise1/lab2exercise1.html")
     }
 }
 
