@@ -1,0 +1,117 @@
+ .navigation {
+    right: 5px;
+    background-color: rgba(240, 46, 170, 0.4);
+    width: 200px;
+    height: 300px;
+    text-align: center;
+    margin: auto;
+    position: fixed;
+    display: inline-block;
+  }
+
+  /* Dropdown Button */
+  .dropbtn {
+    background-color: lightgreen;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    font-family: Helvetica, sans-serif;
+  }
+
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    font-family: Helvetica, sans-serif;
+  }
+
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  /* Show the dropdown menu on hover */
+  .navigation:hover .dropdown-content {
+    display: block;
+    margin-left: 20px;
+    text-align: center;
+  }
+
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .navigation:hover .dropbtn {
+    background-color: #3e8e41;
+  }
+
+
+  .welcomeDiv {
+    background-color: grey;
+    padding: 0px;
+    display: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 4px;
+    font-family: Helvetica, sans-serif;
+  }
+
+  .surpriseSpan {
+
+    display: none;
+    background-color: red;
+    color: white;
+    border-radius: 2px;
+    padding: 20px;
+    font-family: Helvetica, sans-serif;
+  }
+
+  .welcome:hover+.welcomeDiv {
+    display: block;
+    margin: 20px;
+    padding-top: 10px;
+    text-align: center;
+    height: 30px;
+  }
+
+  .welcome {
+    height: 50px;
+    text-align: center;
+    margin: auto;
+    padding-top: 25px;
+    background-color: grey;
+    font-size: 25px;
+    font-family: Helvetica, sans-serif;
+  }
+
+  .text,
+  .text1 {
+    float: left;
+    width: 180px;
+    margin: 20px;
+    padding: 20px;
+    font-family: Helvetica, sans-serif;
+    background-color: lightgreen;
+    border-radius: 2px;
+    /* https://getcssscan.com/css-box-shadow-examples */
+    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+  }
+
+  .text1:hover+.surpriseSpan {
+
+    display: inline-block;
+    margin: 20px;
+    padding-top: 10px;
+    text-align: center;
+    height: 30px;
+
+  }
