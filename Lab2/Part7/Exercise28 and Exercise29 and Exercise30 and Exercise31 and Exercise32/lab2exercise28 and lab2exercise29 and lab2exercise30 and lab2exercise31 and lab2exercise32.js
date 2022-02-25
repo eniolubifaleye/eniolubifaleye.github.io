@@ -1,9 +1,9 @@
  //altered the width to 1000px to see the radial plus the 3 clusters in one
   var width = 1000,
-    height = 600;
+    height = 480;
 
-  // setup svg 
-  d3.select('body').append('svg').attr('width', width).attr('height', height);
+  // setup svg with responsive svg
+  d3.select('body').append('svg').attr("viewBox", `0 0 ` + width + ` ` +  height)
 
   var csvNodes = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/Lab2Exercise29File.csv";
 
@@ -19,7 +19,7 @@
     var simulation = d3.forceSimulation(data)
       //https://observablehq.com/@ben-tanen/a-tutorial-to-using-d3-force-from-someone-who-just-learned-ho
       //radial added to form the circles around a centre point, (width/2) (height/2)  and a radius of 400
-      .force("radial", d3.forceRadial(400, width / 2, height / 2))
+      .force("radial", d3.forceRadial(width/3, width / 2, height / 2))
       .force('charge', d3.forceManyBody().strength(5))
       .force('center', d3.forceCenter(width / 2, height / 2))
       //increased the forceCollide value to 
