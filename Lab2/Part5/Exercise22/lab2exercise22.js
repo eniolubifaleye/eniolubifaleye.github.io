@@ -1,4 +1,4 @@
-// create 2 data_set 
+ // create 2 data_set 
   const data1 = [{
       group: "A",
       value: 5
@@ -101,26 +101,26 @@
 
   // Add Y left axis 
   var y = d3.scaleLinear()
-    .domain([0, 30])
+    .domain([0, d3.max(data1.map(function(d){return d.value})) + 2])
     .range([height, 0]);
-  svg.append("g")
+  var yAxis = svg.append("g")
     .transition()
     .duration(1000)
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y));
 
   //Add Y right axis  
-  var y = d3.scaleLinear()
-    .domain([0, 30])
+  var y1 = d3.scaleLinear()
+    .domain([0, d3.max(data1.map(function(d){return d.value})) + 2])
     .range([height, 0]);
-  svg.append("g")
+  var y1Axis = svg.append("g")
     .transition()
     .duration(1000)
-    .attr("class", "myYaxis")
+    .attr("class", "myYaxis1")
     //set to te width of the svg so if the width of the svg changes the right axis will 
     //move accordingly
     .attr("transform", "translate(" + width + ", 0)")
-    .call(d3.axisRight(y));
+    .call(d3.axisRight(y1));
 
   // A function that create / update the plot for a given variable: 
   function update(data) {
@@ -150,6 +150,25 @@
       .duration(1000)
       .attr("transform", "translate(0, 0)")
       .call(d3.axisTop(x1))
+    
+    //update the domain of the left y axis
+    y.domain([0, d3.max(data.map(function(d){return d.value})) + 2])
+    
+    //update the svg element of the left y Axis
+    yAxis = svg.select(".myYaxis")
+    					 .transition()
+               .duration(1000)
+               .call(d3.axisLeft(y))
+    
+    //update the domain of the right y axis
+    y1.domain([0, d3.max(data.map(function(d){return d.value})) + 2])
+     
+    //update the svg element of the right y Axis 
+    y1Axis = svg.select(".myYaxis1")
+    					 .transition()
+               .duration(1000)
+               .call(d3.axisRight(y1))
+               
 
     var u = svg.selectAll("rect")
       .data(data)

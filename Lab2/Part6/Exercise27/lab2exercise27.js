@@ -1,4 +1,4 @@
-//https://stackoverflow.com/questions/40815889/updating-donut-graph-using-d3-js
+ //https://stackoverflow.com/questions/40815889/updating-donut-graph-using-d3-js
 
   //created 2 data sets to alternate between
   //changed from apples to values
@@ -6,7 +6,7 @@
     values: [5345, 2879, 1997, 2437, 4045]
   };
   var dataset2 = {
-    values: [6000, 2000, 1000, 2000, 3000, 8000]
+    values: [2000, 1000, 2000, 3000, 8000]
   };
 
   var width = 560,
@@ -53,29 +53,24 @@
         }
       });
 
-    //update the arc and giving the same transition as initial rendering of pie chart
-    var pathUpdate = pathPie.transition()
-      .duration(1000)
-      .attr("d", arc)
-      .attrTween("d", function(d) {
-        var i = d3.interpolate(d.endAngle, d.startAngle);
+    //https://bl.ocks.org/mbostock/1346410
+    //for smooth transition between 2 datasets without "pop in/out" redrawing
+    //update the dataset of the pie chart and then the angles of the new pie chart
+    var pathUpdate = pathPie.data(pie(data.values))
+      .transition().duration(750).attrTween("d", function(d) {
+
+        //d holds the new angles from the new dataset
+        //During the transition, the current angle is updated in-place by d3.interpolate
+        //instead of giving it a start angle
+        var intr = d3.interpolate(this.current, d);
+        this.current = intr(0);
         return function(t) {
-          d.startAngle = i(t);
-          return arc(d);
-        }
-      })
+          return arc(intr(t));
+        };
+      });
 
-    //exit() to remove any unwanted arcs during transition back to a smaller dataset with the same
     //transition and added an opacity to 0 so that there are no overlaps visible when removing
-    pathPie.exit().transition().duration(1000).attrTween("d", function(d) {
-      var i = d3.interpolate(d.endAngle, d.startAngle);
-      return function(t) {
-        d.startAngle = i(t);
-        return arc(d);
-      }
-    }).style("opacity", 0).remove();
-
-  };
-
+    pathPie.exit().transition().duration(500).style("opacity", 0).remove();
+  }
   //initialize with dataset 1  
   drawPie(dataset1)
