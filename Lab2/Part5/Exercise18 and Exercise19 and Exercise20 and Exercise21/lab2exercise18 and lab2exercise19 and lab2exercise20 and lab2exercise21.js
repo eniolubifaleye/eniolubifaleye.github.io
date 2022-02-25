@@ -1,29 +1,37 @@
+ //each data set contains a new variable color which is used to set 
+  //the color of each dataset
   // create 2 data_set 
   const data1 = [{
       group: "A",
-      value: 5
+      value: 5,
+      color: "red"
     },
     {
       group: "B",
-      value: 20
+      value: 20,
+      color: "red"
     },
     {
       group: "C",
-      value: 9
+      value: 9,
+      color: "red"
     }
   ];
 
   const data2 = [{
       group: "A",
-      value: 10
+      value: 10,
+      color: "blue"
     },
     {
       group: "B",
-      value: 2
+      value: 2,
+      color: "blue"
     },
     {
       group: "C",
-      value: 22
+      value: 22,
+      color: "blue"
     }
   ];
 
@@ -31,15 +39,18 @@
   //Added a 3rd data set
   const data3 = [{
       group: "A",
-      value: 1
+      value: 1,
+      color: "green"
     },
     {
       group: "B",
-      value: 2
+      value: 2,
+      color: "green"
     },
     {
       group: "C",
-      value: 3
+      value: 3,
+      color: "green"
     }
   ];
 
@@ -62,8 +73,8 @@
     .append("g")
     .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")");
-
-
+	
+  
   //added a transition to all the axis when the graph initially gets loaded up 
   // X bottom axis 
   var x = d3.scaleBand()
@@ -73,7 +84,7 @@
     }))
     .padding(0.2);
   svg.append("g")
-    .transition()
+  	.transition()
     .duration(1000)
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
@@ -86,7 +97,7 @@
     }))
     .padding(0.2);
   svg.append("g")
-    .transition()
+  	.transition()
     .duration(1000)
     .attr("transform", "translate(0, 0)")
     .call(d3.axisTop(x))
@@ -98,7 +109,7 @@
     .domain([0, 30])
     .range([height, 0]);
   svg.append("g")
-    .transition()
+  	.transition()
     .duration(1000)
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y));
@@ -109,7 +120,7 @@
     .domain([0, 30])
     .range([height, 0]);
   svg.append("g")
-    .transition()
+  	.transition()
     .duration(1000)
     .attr("class", "myYaxis")
     //set to te width of the svg so if the width of the svg changes the right axis will 
@@ -119,12 +130,6 @@
 
   // A function that create / update the plot for a given variable: 
   function update(data) {
-
-    var myColor1 = d3.scaleLinear().domain([d3.min(data, function(d) {
-      return d.value;
-    }), d3.max(data, function(d) {
-      return d.value;
-    })]).range(["red", "blue"]);
 
     var u = svg.selectAll("rect")
       .data(data)
@@ -142,6 +147,8 @@
       .attr("y", function(d) {
         return y(d.value);
       })
+      //change the color of the each data set to be different colors
+      .style("fill", function(d){ return d.color})
       .attr("width", x.bandwidth())
       .attr("height", function(d) {
         return height - y(d.value);
@@ -154,12 +161,7 @@
       d3.select(this)
         .transition() // adds animation 
         .duration(400)
-        //change the colour of the bar to a colour inbetween red and blue based on its value
-        //from the variable myColor1
-        .style("fill", function(d) {
-          return myColor1(d.value)
-        })
-
+       
       //added a class to the text val so that it can be removed in the onMouseout
       //function
       svg.append("text")
@@ -185,8 +187,7 @@
       d3.select(this)
         .transition() // adds animation 
         .duration(400)
-        //when you leave a bar the colour goes back to how it was before hover
-        .style("fill", "#69b3a2");
+     
       //select the class val, which is the text in onMouseOver and remove the text
       d3.selectAll('.val')
         .remove()
