@@ -106,23 +106,23 @@
   // Add Y left axis 
   var y = d3.scaleLinear()
 
-    .domain([0, 30])
+    .domain([0, d3.max(data1.map(function(d){return d.value})) + 2])
     .range([height, 0]);
-  svg.append("g")
+ var yAxis = svg.append("g")
   	.transition()
     .duration(1000)
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y));
 
   //Add Y right axis  
-  var y = d3.scaleLinear()
+  var y1 = d3.scaleLinear()
 
-    .domain([0, 30])
+    .domain([0, d3.max(data1.map(function(d){return d.value})) + 2])
     .range([height, 0]);
-  svg.append("g")
+  var y1Axis = svg.append("g")
   	.transition()
     .duration(1000)
-    .attr("class", "myYaxis")
+    .attr("class", "myYaxis1")
     //set to te width of the svg so if the width of the svg changes the right axis will 
     //move accordingly
     .attr("transform", "translate(" + width + ", 0)")
