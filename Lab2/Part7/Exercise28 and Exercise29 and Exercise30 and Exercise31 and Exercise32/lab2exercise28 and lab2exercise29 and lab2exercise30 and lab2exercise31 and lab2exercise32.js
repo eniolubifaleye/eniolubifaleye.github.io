@@ -3,6 +3,7 @@
     height = 480;
 
   // setup svg with responsive svg
+  //https://jsfiddle.net/eniolubifaleye/q4bLjnms/200/
   d3.select('body').append('svg').attr("viewBox", `0 0 ` + width + ` ` +  height)
 
   var csvNodes = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/Lab2Exercise29File.csv";
