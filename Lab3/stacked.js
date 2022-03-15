@@ -262,6 +262,8 @@
       .call(zoom);
 
    
+      //adding the legend to the graph to display which colour is which vaccine
+   //creating the rect sizes
     var size = 15
     graph.selectAll("mydots")
       .data(vaccineNameData)
@@ -276,7 +278,8 @@
       .style("fill", function(d) {
         return color(d)
       })
-
+    
+      	//adding the vaccine name to the side of the rects
     graph.selectAll("mylabels")
       .data(vaccineNameData)
       .enter()
@@ -291,6 +294,27 @@
       })
       .attr("text-anchor", "left")
       .style("alignment-baseline", "middle")
+      
+      
+      // add x and y axis labels 
+    //x label positioning
+    graph.append("text")
+      .attr("class", "x label")
+      .attr("text-anchor", "end")
+      .attr("x", width/2 + margin.left)
+      .attr("y", height + margin.top)
+      .text("Health Organisations");
+      
+      
+      //y label positioning
+    graph.append("text")
+      .attr("class", "y label")
+      .attr("text-anchor", "end")
+      .attr("y", -margin.left)
+      .attr("x", -margin.top)
+      .attr("dy", "1em")
+      .attr("transform", "rotate(-90)")
+      .text("No. of Vaccinations per Country");
 
   }).catch(function(err) {
     // handle error here
