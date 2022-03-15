@@ -3,15 +3,27 @@
 <head> 
     <script src='https://d3js.org/d3.v7.min.js'></script>
     <link rel="stylesheet" href="stacked.css">
+     <link rel="stylesheet" href="bidirectional.css">
 </head> 
 <body>    
    <div>Lab 3 Dashboard</div>
     
+    
+    
+    <!-- div for the bidirectional data -->
+    <div id='dashboard'></div>
+    
     <!-- button to reset the zoom -->
-    <button onclick="zoomReset();">RESET</button>
+        <button onclick="zoomReset();">RESET</button>
+    
+    <!-- div for stacked data -->
+    <div id='dashboard2'>
+        
+    </div>
     
     <!-- Load exercise script -->
     <script src='./stacked.js'></script>
+    <script src='./bidirectional.js'></script>
     
     <div id="table"></div>
 
