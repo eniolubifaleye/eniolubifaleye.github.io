@@ -4,7 +4,7 @@
     <script src='https://d3js.org/d3.v7.min.js'></script>
     <link rel="stylesheet" href="stacked.css">
     <link rel="stylesheet" href="bidirectional.css">
-    <link rel="stylesheet" href="brush.css">
+    <link rel="stylesheet" href="map.css">
 </head> 
 <body>    
    <div>Lab 3 Dashboard</div>
@@ -16,28 +16,23 @@
         <button onclick="zoomReset();">RESET</button>
     
     <!-- div for stacked data -->
-    <div id='dashboard3'></div>
+    <div class='dashboard2'>
+        <div id="table"></div>     
+    </div>
     
-    <!-- Initialize a select button -->
-    <select id="selectButton"></select>
-
-    <div id = "dashboard2"></div>
-
-    <div id="table">
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>Value</th>
-            </tr>
-        </table>
+    <!-- Create a div where the graph will take place -->
+    <div class="container">
+        <div class="right">
+            <div id="my_dataviz"></div>
+        </div>
+        <div id="my_dataviz2"></div>
+        <div class="left"></div>
     </div>
     
     <!-- Load exercise script -->
     <script src='./stacked.js'></script>
     <script src='./bidirectional.js'></script>
-    <script src='./brush.js'></script>
+    <script src= 'map.js'></script>
     
-    <div id="table"></div>
-
 </body> 
 </html> 

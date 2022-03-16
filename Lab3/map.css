@@ -1,0 +1,37 @@
+ .container {
+    width: 1370px;
+    margin: 50px auto;
+  }
+
+  .left,
+  .right {
+    float: left;
+  }
+
+  .left {
+    display: block;
+    width: 200px;
+    height: 55px;
+    padding: 12px;
+    box-sizing: border-box;
+  }
+
+  #my_dataviz {
+    display: block;
+    width: 600px;
+    height: 365px;
+    padding: 12px;
+    box-sizing: border-box;
+  }
+
+  .tooltip {
+    display: none;
+  }
+
+  .countryTooltip {
+    display: none;
+  }
+
+.lineMap{
+    float: right;
+}

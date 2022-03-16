@@ -7,3 +7,12 @@
   th {
     font-size: 12px;
   }
+
+.dashboard2{
+    width:1060px;
+    margin:50px auto; 
+}
+
+#table{
+    float:right;
+}

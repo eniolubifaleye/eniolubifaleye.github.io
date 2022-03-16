@@ -12,8 +12,7 @@
   const width = 460 - margin.left - margin.right;
   const height = 400 - margin.top - margin.bottom;
 
-  var graph = d3.select("body")
-    .append('div')
+  var graph = d3.select(".dashboard2")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
