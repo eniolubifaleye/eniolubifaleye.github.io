@@ -14,5 +14,25 @@
 }
 
 #table{
+    margin-top: 47px;
     float:right;
 }
+
+/* added styling to the buttons */
+  button {
+    background-color: green;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    border-radius: 2px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 1s;
+    float: left;
+  }
+
+  button:hover {
+    background-color: black;
+  }

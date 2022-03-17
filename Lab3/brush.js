@@ -4,7 +4,7 @@
   
   //https://bl.ocks.org/EfratVil/92f894ac0ba265192411e73f633a3e2f
   // set the dimensions and margins of the graph where the main line chart is
-  const margin = {
+  const marginLine = {
     top: 10,
     right: 30,
     bottom: 100,
@@ -12,7 +12,7 @@
   };
 	
   //set the dimensions and margins for the line chart where the brushing takes place 
-  const margin2 = {
+  const margin2Line = {
     top: 320,
     right: 0,
     bottom: 20,
@@ -20,19 +20,20 @@
   }
   
   //width height and hight2 for both the  top line graph and the bottom line graph
-  const width = 760 - margin.left - margin.right;
-  const height = 400 - margin.top - margin.bottom;
-  const height2 = 400 - margin2.top - margin2.bottom;
+  const widthLine = 760 - marginLine.left - marginLine.right;
+  const heightLine = 400 - marginLine.top - marginLine.bottom;
+  const height2Line = 400 - margin2Line.top - margin2Line.bottom;
 
   // append the svg object to the body of the page 
-  var svg = d3.select('body')
-    .append('div')
+  var svgLine = d3.select('.dashboard3')
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("class", "lineHospital")
+    .attr("width", widthLine + marginLine.left + marginLine.right)
+    .attr("height", heightLine + marginLine.top + marginLine.bottom)
     .append("g")
     .attr("transform",
-      "translate(" + margin.left + "," + margin.top + ")");
+      "translate(" + marginLine.left + "," + marginLine.top + ")");
+
 
 //d3 csv to pull in the hospitalizations data 
   d3.csv(hospitalizations, function(newData) {
@@ -134,49 +135,49 @@
 		
     //create x and y extent for the x and y axis using filteredDailyHospital
     //and filteredData. use the plus to change data to numerical value from string
-    const yExtent = d3.extent(filteredDailyHospital, d => {
+    const yExtentLine = d3.extent(filteredDailyHospital, d => {
       return +d.value
     });
 
-    const xExtent = d3.extent(filteredData, d => {
+    const xExtentLine = d3.extent(filteredData, d => {
       return d.date
     });
 		
     //create the different groups on the svg
     //focus to have the main line graph and context to have the brushing line graph
-    var focus = svg.append("g")
+    var focus = svgLine.append("g")
       .attr("class", "focus")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", "translate(" + marginLine.left + "," + marginLine.top + ")");
 
-    var context = svg.append("g")
+    var context = svgLine.append("g")
       .attr("class", "context")
-      .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+      .attr("transform", "translate(" + margin2Line.left + "," + margin2Line.top + ")");
 
     // X bottom axis for main line graph
     var x = d3.scaleTime()
-      .range([0, width], .1)
-      .domain(xExtent)
+      .range([0, widthLine], .1)
+      .domain(xExtentLine)
 
     // Add Y left axis for main line graph
     var y = d3.scaleLinear()
-      .domain([0, 100 + d3.max(yExtent)])
-      .range([height, 0]);
+      .domain([0, 100 + d3.max(yExtentLine)])
+      .range([heightLine, 0]);
 		
     
     //x scale for the context line graph
     var x2 = d3.scaleTime()
-      .range([0, width], .1)
-      .domain(xExtent)
+      .range([0, widthLine], .1)
+      .domain(xExtentLine)
 
     // Add Y left axis for brushing
     var y2 = d3.scaleLinear()
-      .domain([0, 100 + d3.max(yExtent)])
-      .range([height2, 0]);
+      .domain([0, 100 + d3.max(yExtentLine)])
+      .range([height2Line, 0]);
 
     //add the X and Y axis to the focus group
     var xAxis = focus.append("g")
       .attr("class", "Xaxis")
-      .attr("transform", "translate(0," + height + ")")
+      .attr("transform", "translate(0," + heightLine + ")")
       .call(d3.axisBottom(x).ticks(10));
 		
     
@@ -184,7 +185,7 @@
     //tickValues([]));
     var xAxis2 = context.append("g")
       .attr("class", "Xaxis2")
-      .attr("transform", "translate(0," + height2 + ")")
+      .attr("transform", "translate(0," + height2Line + ")")
       .call(d3.axisBottom(x2).tickValues([]));
 
     var yAxis = focus.append("g")
@@ -235,7 +236,7 @@
         var brush = d3.brushX()
           .extent([
             [0, 0],
-            [width, height2 - 1]
+            [widthLine, height2Line - 1]
           ])
           .on("brush", updateChart)
           .on("end", resetSelected)

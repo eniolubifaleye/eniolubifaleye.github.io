@@ -1,0 +1,28 @@
+  body {
+    font-family: Sans-Serif;
+  }
+
+  .node {
+    fill: lightgreen;
+    stroke: none;
+  }
+
+ .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+  }
+
+  .label {
+    font-size: 10px;
+    text-anchor: middle;
+  }
+  
+  .count-label {
+    font-size: 10px;
+    text-anchor: middle;
+  }
+  
+  .dashboard4{
+    margin: 50px auto;
+  }

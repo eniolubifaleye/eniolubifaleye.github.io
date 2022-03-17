@@ -2,22 +2,36 @@
 <html lang="en"> 
 <head> 
     <script src='https://d3js.org/d3.v7.min.js'></script>
+    <link rel="stylesheet" href="brush.css">
     <link rel="stylesheet" href="stacked.css">
     <link rel="stylesheet" href="bidirectional.css">
     <link rel="stylesheet" href="map.css">
-    <link rel="stylesheet" href="brush.css">
+    <link rel="stylesheet" href="cluster.css">
 </head> 
 <body>    
    <div>Lab 3 Dashboard</div>
     
+    <!-- Initialize a select button -->
+    <select id="selectButton"></select>
+
+    <div class="dashboard3"></div>
+
+    <table class="tableLine">
+        <tr>
+            <th>Date</th>
+            <th>Value</th>
+        </tr>
+    </table>
+    
     <!-- div for the bidirectional data -->
     <div id='dashboard'></div>
     
-    <!-- button to reset the zoom -->
-        <button onclick="zoomReset();">RESET</button>
-    
     <!-- div for stacked data -->
     <div class='dashboard2'>
+    
+        <!-- button to reset the zoom -->
+        <button onclick="zoomReset();">RESET</button>
+        
         <div id="table"></div>     
     </div>
     
@@ -30,24 +44,22 @@
         <div class="left"></div>
     </div>
     
-    <div class = "dashboard3">
-        <div id="table">
-            <table class = "tableLine">
-                <tr>
-                    <th>Date</th>
-                    <th>Value</th>
-                </tr>
-            </table>
-        </div>
-
-        <div class ="lineContainer"></div>
+    <div class= "dashboard4">
+        <svg class="cluster" width="1500" height="440">
+            <g transform="translate(5, 5)">
+            <g class="links"></g>
+            <g class="nodes"></g>
+            </g>
+        </svg>
     </div>
+
     
     <!-- Load exercise script -->
+    <script src="./brush.js"></script>
     <script src='./stacked.js'></script>
     <script src='./bidirectional.js'></script>
     <script src= './map.js'></script>
-    <script src= 'brush.js'></script>
+    <script src='./cluster.js'></script>
     
 </body> 
 </html> 
