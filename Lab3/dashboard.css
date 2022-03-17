@@ -1,2 +1,9 @@
 html { overflow-y: scroll; }
-body { position: absolute; }
+
+.headerDiv{
+    font-size: 40px;
+    text-align: center;
+    background: grey;
+    height: 90px;
+    padding-top: 35px;
+}

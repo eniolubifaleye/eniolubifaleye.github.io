@@ -173,6 +173,7 @@
             .attr("height", function(d) {
               return height - y(d[1]);
             })
+            .attr("class", "rectBi")
             .attr('fill', "steelblue")
             .on("mouseover", mouseover)
             .on("mouseout", mouseout);

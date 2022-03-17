@@ -2,7 +2,7 @@
  .tableLine {
     visibility: hidden;
     position: absolute;
-    top: 30px;
+    top: 220px;
     left: 800px;
     font-family: sans-serif;
     font-size: 0.7em;
@@ -19,3 +19,10 @@
 .dashboard3{
     margin: 50px auto;
 }
+
+#selectButton{
+    width: 200px;
+    height: 50px;
+}
+
+.brush:hover {  fill:none; }
