@@ -34,6 +34,17 @@
     .attr("transform",
       "translate(" + marginLine.left + "," + marginLine.top + ")")
     .attr("viewBox", `0 0 ` + widthLine + ` ` +  heightLine)
+  
+  
+  // append the svg object to the body of the page 
+  var svgZoomed = d3.select('.dashboard3')
+    .append("svg")
+    .attr("class", "svgZoomed")
+    .attr("width", widthLine - 290 + marginLine.left + marginLine.right)
+    .attr("height", heightLine + marginLine.top + marginLine.bottom)
+    .append("g")
+    .attr("transform",
+      "translate(" + marginLine.left + "," + marginLine.top + ")");
 
 
 //d3 csv to pull in the hospitalizations data 
@@ -192,6 +203,28 @@
     var yAxis = focus.append("g")
       .attr("class", "Yaxis")
       .call(d3.axisLeft(y).ticks(20));
+      
+    // X bottom axis for main line graph
+    var xZoomed = d3.scaleTime()
+      .range([0, widthLine - 260], .1)
+      .domain(xExtentLine)
+    
+    //add the x axis for the context group with no tick values using
+    //tickValues([]));
+    var xAxisZoomed = svgZoomed.append("g")
+      .attr("class", "XaxisZoomed")
+      .attr("transform", "translate(10," + (heightLine + 30) + ")")
+      .call(d3.axisBottom(xZoomed).tickValues([]));
+
+    // Add Y left axis for main line graph
+    var yZoomed = d3.scaleLinear()
+      .domain([0, 100 + d3.max(yExtentLine)])
+      .range([heightLine, 0]);
+
+    var yAxisZoomed = svgZoomed.append("g")
+      .attr("class", "YaxisZoomed")
+      .attr("transform", "translate(10,30)")
+      .call(d3.axisLeft(yZoomed).tickValues([]));
     
     //function to draw the line data
     function drawLine(data) {
@@ -261,13 +294,17 @@
         var selectedData = [];
         
         //function to clear the selectedData array
+        // and to draw the zoomed line with the selectedData before clearing it 
         function resetSelected(){
+            zoomedLine(selectedData);
         	selectedData.length = 0;
         }
 				
         //function to update the chart when the selection is changed
         //http://bl.ocks.org/feyderm/6bdbc74236c27a843db633981ad22c1b
         function updateChart() {
+            //clear the zoomed line
+            d3.select(".lineZoomed").transition().duration(100).style("opacity", 0).remove();
 
           // disregard brushes without selections
           if (!d3.selection) return;
@@ -381,6 +418,47 @@
         // run the updateChart function with this selected option
         update(selectedOption)
       });
+    }
+      
+    function zoomedLine(dataZoomed) {
+
+      //update the y domain
+      yZoomed.domain([0, d3.max(dataZoomed.map(function(d) {
+        return d.value;
+      }))]);
+
+      //update the y axis
+      yAxisZoomed = svgZoomed.select(".YaxisZoomed").transition()
+        .duration(1000)
+        .call(d3.axisLeft(yZoomed));
+
+      const xExtentZoomed = d3.extent(dataZoomed, d => {
+        return d.date
+      });
+
+      //update the x domain
+      xZoomed.domain(xExtentZoomed);
+
+      //update the y axis
+      xAxisZoomed = svgZoomed.select(".XaxisZoomed").transition()
+        .duration(1000)
+        .call(d3.axisBottom(xZoomed).ticks(5));
+
+      // Add the line 
+      var uZoomed = svgZoomed.append("path")
+        .datum(dataZoomed)
+          
+      uZoomed
+          .datum(dataZoomed)
+          .attr("fill", "none")
+        	.attr("stroke", "lightgreen")
+          .attr("class", "lineZoomed")
+          .transition()
+          .duration(1000)
+          .attr("d", d3.line()
+            .x(d => xZoomed(d.date)+10)
+            .y(d => yZoomed(d.value)+30)
+          )
     }
 		
     //call the drawLine function
