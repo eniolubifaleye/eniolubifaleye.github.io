@@ -20,7 +20,7 @@
     .append("g")
     .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")")
-    .attr("viewBox", [0, 0, width, height]);
+    .attr("viewBox", `0 0 ` + width + ` ` +  height)
 
   //handle zoom events for the svg container
   function handleZoom(e) {

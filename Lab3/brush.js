@@ -32,7 +32,8 @@
     .attr("height", heightLine + marginLine.top + marginLine.bottom)
     .append("g")
     .attr("transform",
-      "translate(" + marginLine.left + "," + marginLine.top + ")");
+      "translate(" + marginLine.left + "," + marginLine.top + ")")
+    .attr("viewBox", `0 0 ` + widthLine + ` ` +  heightLine)
 
 
 //d3 csv to pull in the hospitalizations data 
@@ -288,6 +289,7 @@
           
           	//call the function to clear the table
             clearTableRows();
+            //for each array object in selected data call the populateTableRow with data in d_row
             selectedData.forEach(d_row => populateTableRow(d_row))
           } else {
             clearTableRows();

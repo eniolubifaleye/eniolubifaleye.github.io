@@ -30,14 +30,14 @@
     .attr("height", heightMap + marginMap.top + marginMap.bottom)
     .append("g")
     .attr("transform",
-      "translate(" + marginMap.left + "," + marginMap.top + ")");
+      "translate(" + marginMap.left + "," + marginMap.top + ")")
+    .attr("viewBox", `0 0 ` + widthMap + ` ` +  heightMap);
 
 
   //adding the datasets for the promise all from my github into variable names
   var totalDeaths = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/total_deaths.csv";
   var geojson = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/world.geojson";
   var locations = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/locations.csv";
-
   var totalCases = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/new_cases.csv";
 
   // Load external data and boot
@@ -394,7 +394,8 @@
       .attr("height", heightMap + marginMap.top + marginMap.bottom)
       .attr("class", "lineMap")
       .append("g")
-      .attr("transform", "translate(" + marginMap.left + "," + marginMap.top + ")");
+      .attr("transform", "translate(" + marginMap.left + "," + marginMap.top + ")")
+      .attr("viewBox", `0 0 ` + widthMap + ` ` +  heightMap);
 
     // X bottom axis for main line graph
     var xLine = d3.scaleTime()

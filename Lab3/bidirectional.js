@@ -217,8 +217,7 @@
           .attr("height", heightCountry + marginCountry.top + marginCountry.bottom)
           .append("g")
           .attr("transform", "translate(" + marginCountry.left + "," + marginCountry.top + ")")
-          //click the svg to remove it
-          //.on("click", resetLineGraph);
+          .attr("viewBox", `0 0 ` + widthCountry + ` ` +  heightCountry)
 
         // X bottom axis for main line graph
         var xCountry = d3.scaleTime()
@@ -328,6 +327,7 @@
             .attr("width", width + margins.left + margins.right)
             .attr("height", height + margins.top + margins.bottom).append("g")
             .attr("transform", "translate(" + margins.left + "," + margins.top + ")")
+            .attr("viewBox", `0 0 ` + width + ` ` +  height)
 
           //create x scale
           var x = d3.scaleBand().domain(fD.map(function(d) {
@@ -509,7 +509,8 @@
           // create svg for pie chart.
           var piesvg = d3.select(id).append("svg").attr("class", "histogramSVG")
             .attr("width", marginP.width).attr("height", marginP.height).append("g")
-            .attr("transform", "translate(" + marginP.width / 2 + "," + marginP.height / 2 + ")");
+            .attr("transform", "translate(" + marginP.width / 2 + "," + marginP.height / 2 + ")")
+            .attr("viewBox", `0 0 ` + width + ` ` +  height);
 
           // create function to draw the arcs of the pie slices.
           var arc = d3.arc().outerRadius(marginP.radius - 10).innerRadius(20);
