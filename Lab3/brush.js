@@ -459,6 +459,15 @@
             .x(d => xZoomed(d.date)+10)
             .y(d => yZoomed(d.value)+30)
           )
+        
+        //x label positioning
+          svgZoomed.append("text")
+            .attr("class", "labelHeader")
+            .attr("text-anchor", "end")
+            .attr("x", (widthLine / 2) + marginLine.top)
+            .attr("y", 30)
+            .attr("font-size", 15)
+            .text("Zoomed Hospitalization");
     }
 		
     //call the drawLine function
