@@ -300,8 +300,9 @@
     graph.append("text")
       .attr("class", "x label")
       .attr("text-anchor", "end")
-      .attr("x", width/2 + margin.left)
+      .attr("x", width/2 + margin.left - 60)
       .attr("y", height + margin.top)
+      .style("font-size", 15)
       .text("Health Organisations");
       
       
@@ -310,8 +311,9 @@
       .attr("class", "y label")
       .attr("text-anchor", "end")
       .attr("y", -margin.left)
-      .attr("x", -margin.top)
+      .attr("x", -margin.top - 80)
       .attr("dy", "1em")
+      .style("font-size", 15)
       .attr("transform", "rotate(-90)")
       .text("No. of Vaccinations per Country");
 

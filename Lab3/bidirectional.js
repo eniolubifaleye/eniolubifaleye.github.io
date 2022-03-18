@@ -4,10 +4,12 @@
   var scotland = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/Scotland.csv";
   var england = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/England.csv";
   var wales = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/Wales.csv";
+  var vaccination = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/vaccinations.csv";
+
 
   //https://stackoverflow.com/questions/21842384/importing-data-from-multiple-csv-files-in-d3
   //promise all to take all the uk country data for vaccinations
-  Promise.all([d3.csv(ireland), d3.csv(scotland), d3.csv(england), d3.csv(wales)])
+  Promise.all([d3.csv(ireland), d3.csv(scotland), d3.csv(england), d3.csv(wales), d3.csv(vaccination)])
 
     .then(function(files) {
 
@@ -23,6 +25,108 @@
 
       let wales = [];
       wales = files[3];
+
+      let vaccinationData = [];
+      vaccinationData = files[4];
+
+      //filter the vaccinations dataset for the 4 different UK countries
+      var filteredDataIreland = vaccinationData.filter(function(d) {
+        return d.location == "Ireland"
+      });
+      var filteredDataScotland = vaccinationData.filter(function(d) {
+        return d.location == "Scotland"
+      });
+      var filteredDataEngland = vaccinationData.filter(function(d) {
+        return d.location == "England"
+      });
+      var filteredDataWales = vaccinationData.filter(function(d) {
+        return d.location == "Wales"
+      });
+
+      //adding continents for variables to keep when filtering using filtering method
+      var keysKeep = ["date", "location", "daily_vaccinations"];
+
+      //filters for each country for hover over bar chart
+      //https://stackoverflow.com/questions/54907549/keep-only-selected-keys-in-every-object-from-array
+      let filterIreland = filteredDataIreland.map(element => Object.assign({}, ...keysKeep.map(key => ({
+        [key]: element[key]
+      }))))
+
+      let filterScotland = filteredDataScotland.map(element => Object.assign({}, ...keysKeep.map(key => ({
+        [key]: element[key]
+      }))))
+
+      let filterEngland = filteredDataEngland.map(element => Object.assign({}, ...keysKeep.map(key => ({
+        [key]: element[key]
+      }))))
+
+      let filterWales = filteredDataWales.map(element => Object.assign({}, ...keysKeep.map(key => ({
+        [key]: element[key]
+      }))))
+
+      //"people_fully_vaccinated_per_hundred",
+      //  "people_vaccinated_per_hundred", "total_boosters_per_hundred",
+      //  "total_vaccinations_per_hundred"
+
+      let peopleFullyVaccH = []
+      let peopleVaccH = []
+      let totalBoostersH = []
+      let totalVaccH = [];
+
+      //populating the datasets for the pie chart to draw multiple lines on the line graph area
+      for (var i = 0; i < filterWales.length; i++) {
+        peopleFullyVaccH[i] = {
+          date: filterWales[i].date,
+          value1: +filteredDataIreland[i].people_fully_vaccinated_per_hundred,
+          value2: +filteredDataScotland[i].people_fully_vaccinated_per_hundred,
+          value3: +filteredDataEngland[i].people_fully_vaccinated_per_hundred,
+          value4: +filteredDataWales[i].people_fully_vaccinated_per_hundred,
+          label: "People Fully Vaccinated Per Hundred"
+        }
+      }
+
+      for (var i = 0; i < filterWales.length; i++) {
+        peopleVaccH[i] = {
+          date: filterWales[i].date,
+          value1: +filteredDataIreland[i].people_vaccinated_per_hundred,
+          value2: +filteredDataScotland[i].people_vaccinated_per_hundred,
+          value3: +filteredDataEngland[i].people_vaccinated_per_hundred,
+          value4: +filteredDataWales[i].people_vaccinated_per_hundred,
+          label: "People Vaccinated Per Hundred"
+        }
+      }
+
+      for (var i = 0; i < filterWales.length; i++) {
+        totalBoostersH[i] = {
+          date: filterWales[i].date,
+          value1: +filteredDataIreland[i].total_boosters_per_hundred,
+          value2: +filteredDataScotland[i].total_boosters_per_hundred,
+          value3: +filteredDataEngland[i].total_boosters_per_hundred,
+          value4: +filteredDataWales[i].total_boosters_per_hundred,
+          label: "Total Boosters Per Hundred"
+        }
+      }
+
+      for (var i = 0; i < filterWales.length; i++) {
+        totalVaccH[i] = {
+          date: filterWales[i].date,
+          value1: +filteredDataIreland[i].total_vaccinations_per_hundred,
+          value2: +filteredDataScotland[i].total_vaccinations_per_hundred,
+          value3: +filteredDataEngland[i].total_vaccinations_per_hundred,
+          value4: +filteredDataWales[i].total_vaccinations_per_hundred,
+          label: "Total Vaccinations Per Hundred"
+        }
+      }
+
+      //xExtent for the line graph
+      const xExtentCountry = d3.extent(filteredDataIreland, d => {
+        return d3.timeParse("%Y-%m-%d")(d.date)
+      });
+
+      //yExtent for the line graph
+      const yExtentCountry = d3.extent(filterEngland, d => {
+        return +d.daily_vaccinations
+      });
 
       //arrays of totals
       var totalVaccArray = [];
@@ -91,11 +195,104 @@
         }
       }
 
-
       //function to initialize the dashboard
       //id takes in the html elements id and fData is the data to be passed in
       function dashboard(id, countryData) {
 
+        //histogram contraints
+        var marginCountry = {
+          top: 60,
+          right: 0,
+          bottom: 30,
+          left: 60
+        };
+
+        //histogram width and height 
+        var widthCountry = 500 - marginCountry.left - marginCountry.right;
+        var heightCountry = 300 - marginCountry.top - marginCountry.bottom;
+
+        //create svg for line graph 
+        var svgCountry = d3.select(id)
+          .append("svg").attr("width", widthCountry + marginCountry.left + marginCountry.right)
+          .attr("height", heightCountry + marginCountry.top + marginCountry.bottom)
+          .append("g")
+          .attr("transform", "translate(" + marginCountry.left + "," + marginCountry.top + ")")
+          //click the svg to remove it
+          //.on("click", resetLineGraph);
+
+        // X bottom axis for main line graph
+        var xCountry = d3.scaleTime()
+          .range([0, widthCountry], .1)
+          .domain(xExtentCountry);
+
+        // Add Y left axis for main line graph
+        var yCountry = d3.scaleLinear()
+          .domain([0, 100 + d3.max(yExtentCountry)])
+          .range([heightCountry, 0]);
+
+        //add the X and Y axis to the focus group
+        var xAxisLineCountry = svgCountry.append("g")
+          .attr("class", "XaxisLineCountry")
+          .attr("transform", "translate(0," + heightCountry + ")")
+          .call(d3.axisBottom(xCountry).ticks(5));
+
+        var yAxisLineCountry = svgCountry.append("g")
+          .attr("class", "YaxisLineCountry")
+          .attr("transform", "translate(0,0)")
+          .call(d3.axisLeft(yCountry).ticks(10, "s"));
+
+        //function to draw the line graph of daily vaccinations when you hover over
+        function drawCountry(data) {
+
+          //update the y domain
+          yCountry.domain([0, d3.max(data.map(function(d) {
+            return +d.daily_vaccinations;
+          }))]);
+
+          //update the y axis
+          yAxisLineCountry = svgCountry.select(".YaxisLineCountry").transition()
+            .duration(1000)
+            .call(d3.axisLeft(yCountry).ticks(10, "s"));
+
+          // Add the line 
+          var uCountry = svgCountry.append("path")
+            .datum(data)
+
+          //draw the line and merge each of the data for each different line
+          uCountry.enter()
+            .append("path")
+            .merge(uCountry)
+            .transition()
+            .duration(1000)
+            .attr("fill", "none")
+            .attr("class", "lineDCountry")
+            .attr("stroke", "lightgreen")
+            .attr("stroke-width", 1)
+            .attr("d", d3.line()
+              .x(function(d) {
+                //parse the date to a date object
+                return xCountry(d3.timeParse("%Y-%m-%d")(d.date))
+              })
+              .y(function(d) {
+                return yCountry(+d.daily_vaccinations)
+              })
+            );
+            
+          //y label positioning
+          svgCountry.append("text")
+            .attr("class", "ylabelDaily")
+            .attr("text-anchor", "end")
+            .attr("y", -marginCountry.left)
+            .attr("x", -marginCountry.top + 50)
+            .attr("dy", "1em")
+            .style("font-size", 15)
+            .attr("transform", "rotate(-90)")
+            .text(keysKeep[2]);
+
+          uCountry = d3.select(".lineDCountry").transition().duration(200).style("opacity", 0).remove();
+        }
+
+        //function to hold a colour for each different segment for a pie chart
         function pieSectionColour(c) {
           return {
             totalVacc: "#807dba",
@@ -169,11 +366,11 @@
             .attr("y", function(d) {
               return y(d[1]);
             })
+            .attr("class", "rectBi")
             .attr("width", x.bandwidth())
             .attr("height", function(d) {
               return height - y(d[1]);
             })
-            .attr("class", "rectBi")
             .attr('fill', "steelblue")
             .on("mouseover", mouseover)
             .on("mouseout", mouseout);
@@ -191,7 +388,6 @@
             })
             .attr("text-anchor", "middle");
 
-
           // add x and y axis labels 
           //x label positioning
           histogramsSVG.append("text")
@@ -207,7 +403,7 @@
             .attr("class", "y label")
             .attr("text-anchor", "end")
             .attr("y", -margins.left + 5)
-            .attr("x", -margins.bottom + 25)
+            .attr("x", -margins.bottom - 60)
             .attr("dy", "1em")
             .attr("transform", "rotate(-90)")
             .text("No. of Vaccinations per Country");
@@ -234,12 +430,35 @@
             // call update functions of pie-chart and legend.    
             pC.update(newData);
             leg.update(newData);
+
+            //if statements to check the country of the state variable
+            //if the country matches call the drawLine function with the respective
+            //country's line graph data
+            if (state.Country == "Ireland") {
+              drawCountry(filterIreland);
+            }
+
+            if (state.Country == "Scotland") {
+              drawCountry(filterScotland);
+            }
+
+            if (state.Country == "England") {
+              drawCountry(filterEngland);
+            }
+
+            if (state.Country == "Wales") {
+              drawCountry(filterWales);
+            }
+
           }
 
           function mouseout(d) {
             // reset the pie-chart and legend.    
             pC.update(totalValues);
             leg.update(totalValues);
+
+            d3.select(".lineDCountry").transition().duration(500).style("opacity", 0).remove();
+            d3.select(".ylabelDaily").transition().duration(500).style("opacity", 0).remove();
           }
 
           // create function to update the bars. This will be used by pie-chart.
@@ -335,10 +554,32 @@
                 return [d.Country, d.totals[i.data.type]];
               }),
               pieSectionColour(i.data.type));
+
+            if (i.data.type == "totalVacc") {
+              drawMultipleCountry(totalVaccH)
+            }
+
+            if (i.data.type == "peopleFully") {
+              drawMultipleCountry(peopleFullyVaccH)
+            }
+
+            if (i.data.type == "peopleVacc") {
+              drawMultipleCountry(peopleVaccH)
+            }
+
+            if (i.data.type == "totalBoost") {
+              drawMultipleCountry(totalBoostersH)
+            }
           }
 
           //reset the bars of the histogram to before they were hovered over
           function mouseout(d) {
+            d3.selectAll(".lineDCountryMultiple").transition().duration(200).style("opacity", 0).remove();
+            d3.selectAll(".countryLegend").transition().duration(200).style("opacity", 0).remove();
+            d3.selectAll(".countryLegendText").transition().duration(200).style("opacity", 0).remove();
+            d3.selectAll(".ylabelCountry").transition().duration(200).style("opacity", 0).remove();
+            
+              
             // call the update function of histogram with all data.
             //use the hG.update function and pass in the mapped data of each country and value from ukData
             //and the colour steem blue
@@ -441,6 +682,174 @@
         var hG = histoGram(sF),
           pC = pieChart(totalValues),
           leg = legend(totalValues);
+
+
+        function drawMultipleCountry(lineCountryData) {
+          //update the y domain
+          yCountry.domain([0, d3.max(lineCountryData.map(function(d) {
+            return +d.value1;
+          }))]);
+
+          //update the y axis
+          yAxisLineCountry = svgCountry.select(".YaxisLineCountry").transition()
+            .duration(1000)
+            .call(d3.axisLeft(yCountry).ticks(10, "s"));
+
+          // Add the line 
+          var uCountryMultiple1 = svgCountry.append("path")
+            .datum(lineCountryData)
+
+          //draw the line and merge each of the data for each different line
+          uCountryMultiple1.enter()
+            .append("path")
+            .merge(uCountryMultiple1)
+            .transition()
+            .duration(1000)
+            .attr("fill", "none")
+            .attr("class", "lineDCountryMultiple")
+            .attr("stroke", "lightgreen")
+            .attr("stroke-width", 2)
+            .attr("d", d3.line()
+              .x(function(d) {
+                //parse the date to a date object
+                return xCountry(d3.timeParse("%Y-%m-%d")(d.date))
+              })
+              .y(function(d) {
+                return yCountry(d.value1)
+              })
+            );
+
+          // Add the line 
+          var uCountryMultiple2 = svgCountry.append("path")
+            .datum(lineCountryData)
+
+          //draw the line and merge each of the data for each different line
+          uCountryMultiple2.enter()
+            .append("path")
+            .merge(uCountryMultiple2)
+            .transition()
+            .duration(1000)
+            .attr("fill", "none")
+            .attr("class", "lineDCountryMultiple")
+            .attr("stroke", "red")
+            .attr("stroke-width", 2)
+            .attr("d", d3.line()
+              .x(function(d) {
+                //parse the date to a date object
+                return xCountry(d3.timeParse("%Y-%m-%d")(d.date))
+              })
+              .y(function(d) {
+                return yCountry(d.value2)
+              })
+            );
+
+          // Add the line 
+          var uCountryMultiple3 = svgCountry.append("path")
+            .datum(lineCountryData)
+
+          //draw the line and merge each of the data for each different line
+          uCountryMultiple3.enter()
+            .append("path")
+            .merge(uCountryMultiple3)
+            .transition()
+            .duration(1000)
+            .attr("fill", "none")
+            .attr("class", "lineDCountryMultiple")
+            .attr("stroke", "blue")
+            .attr("stroke-width", 2)
+            .attr("d", d3.line()
+              .x(function(d) {
+                //parse the date to a date object
+                return xCountry(d3.timeParse("%Y-%m-%d")(d.date))
+              })
+              .y(function(d) {
+                return yCountry(d.value3)
+              })
+            );
+
+          // Add the line 
+          var uCountryMultiple4 = svgCountry.append("path")
+            .datum(lineCountryData)
+
+          //draw the line and merge each of the data for each different line
+          uCountryMultiple4.enter()
+            .append("path")
+            .merge(uCountryMultiple4)
+            .transition()
+            .duration(1000)
+            .attr("fill", "none")
+            .attr("class", "lineDCountryMultiple")
+            .attr("stroke", "orange")
+            .attr("stroke-width", 2)
+            .attr("d", d3.line()
+              .x(function(d) {
+                //parse the date to a date object
+                return xCountry(d3.timeParse("%Y-%m-%d")(d.date))
+              })
+              .y(function(d) {
+                return yCountry(d.value4)
+              })
+            );
+
+          var countryNameData = ["Ireland", "Scotland", "England", "Wales"]
+
+          //colour scale
+          var color = d3.scaleOrdinal().domain(countryNameData)
+            .range(["lightgreen", "red", "blue", "orange"]);
+
+          //adding the legend to the graph to display which colour is which vaccine
+          //creating the rect sizes
+          var sizeLegend = 15
+          svgCountry.selectAll("mydotsCountry")
+            .data(countryNameData)
+            .enter()
+            .append("rect")
+            .attr("class", "countryLegend")
+            .attr("x", widthCountry - 410)
+            .attr("y", function(d, i) {
+              return i * (sizeLegend + 5)
+            })
+            .attr("width", sizeLegend)
+            .attr("height", sizeLegend)
+            .style("fill", function(d) {
+              return color(d)
+            })
+
+          //adding the vaccine name to the side of the rects
+          svgCountry.selectAll("mylabelsCountry")
+            .data(countryNameData)
+            .enter()
+            .append("text")
+            .attr("class", "countryLegendText")
+            .attr("x", widthCountry - 410 + sizeLegend * 1.2)
+            .attr("y", function(d, i) {
+              return i * (sizeLegend + 5) + (sizeLegend / 2)
+            })
+            .style("font-size", "12px")
+            .text(function(d) {
+              return d
+            })
+            .attr("text-anchor", "left")
+            .style("alignment-baseline", "middle")
+
+
+          //y label positioning
+          svgCountry.append("text")
+            .attr("class", "ylabelCountry")
+            .attr("text-anchor", "end")
+            .attr("y", -marginCountry.left)
+            .attr("x", -marginCountry.top + 50)
+            .attr("dy", "1em")
+            .style("font-size", 13)
+            .attr("transform", "rotate(-90)")
+            .text(lineCountryData[0].label);
+
+        }
+
+        //function to reset the line graph
+        function resetLineGraph() {
+          
+        }
       }
 
       //call the dashboard function with the div id #dashboard and the dataset we created ukData

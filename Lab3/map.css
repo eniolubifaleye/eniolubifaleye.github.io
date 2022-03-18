@@ -1,12 +1,14 @@
  .container {
     width: 1370px;
     margin: 50px auto;
+     
   }
 
   .left,
   .right {
     float: left;
   }
+
 
   .left {
     display: block;
@@ -22,10 +24,15 @@
     height: 365px;
     padding: 12px;
     box-sizing: border-box;
+    border-color: green;
+    border-style:solid;
+    border-width: thick;
+    background-color: white;
   }
 
   .tooltip {
     display: none;
+      
   }
 
   .countryTooltip {
@@ -34,4 +41,8 @@
 
 .lineMap{
     float: right;
+    border-color: green;
+    border-style:solid;
+    border-width: thick;
+    background-color: white;
 }

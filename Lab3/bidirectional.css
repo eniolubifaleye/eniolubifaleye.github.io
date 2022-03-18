@@ -1,6 +1,10 @@
 #dashboard {
      width:1060px;
-    margin:50px auto;  
+    margin:50px auto;
+    border-color: green;
+    border-style:solid;
+    border-width: thick;
+    background-color: white;
 }
   
 .pieChartPath {  stroke: #fff; }

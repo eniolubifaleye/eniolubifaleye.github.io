@@ -10,7 +10,11 @@
 
 .dashboard2{
     width:1060px;
-    margin:50px auto; 
+    margin:50px auto;
+    border-color: green;
+    border-style:solid;
+    border-width: thick;
+    background-color: white;
 }
 
 #table{

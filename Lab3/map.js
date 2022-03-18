@@ -423,8 +423,8 @@
         .attr("class", "x label")
         .attr("text-anchor", "end")
         .attr("x", (widthMap / 2) + marginMap.top + 10)
-        .attr("y", heightMap + marginMap.bottom)
-        .attr("font-size", 15)
+        .attr("y", heightMap + marginMap.bottom - 20)
+        .style("font-size", 15)
         .text("Date");
       
      //y label positioning
@@ -432,7 +432,8 @@
             .attr("class", "y label")
             .attr("text-anchor", "end")
             .attr("y", -marginMap.left)
-            .attr("x", -marginMap.bottom + 25)
+            .attr("x", -marginMap.bottom - 50)
+            .style("font-size", 15)
             .attr("dy", "1em")
             .attr("transform", "rotate(-90)")
             .text("no. of covid cases");

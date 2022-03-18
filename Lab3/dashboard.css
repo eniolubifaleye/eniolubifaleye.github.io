@@ -3,7 +3,12 @@ html { overflow-y: scroll; }
 .headerDiv{
     font-size: 40px;
     text-align: center;
-    background: grey;
+    background: green;
     height: 90px;
     padding-top: 35px;
+    color: white;
+}
+
+body{
+    background-color: lightgray;
 }
