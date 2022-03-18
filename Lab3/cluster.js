@@ -55,7 +55,7 @@
       "children": [{ //Asia
           "name": "Asia",
           "children": [{
-              "name": "High",
+              "name": "High Income",
               "children": [{
                   "name": "China",
                   "value": China
@@ -67,7 +67,7 @@
               ]
             },
             {
-              "name": "Low",
+              "name": "Low Income",
               "children": [{
                   "name": "Afghanistan",
                   "value": Afghanistan
@@ -83,7 +83,7 @@
         { //Africa
           "name": "Africa",
           "children": [{
-              "name": "High",
+              "name": "High Income",
               "children": [{
                   "name": "Nigeria",
                   "value": Nigeria
@@ -95,7 +95,7 @@
               ]
             },
             {
-              "name": "Low",
+              "name": "Low Income",
               "children": [{
                   "name": "Burundi",
                   "value": Burundi
@@ -111,7 +111,7 @@
         { //North America
           "name": "North America",
           "children": [{
-              "name": "High",
+              "name": "High Income",
               "children": [{
                   "name": "United States",
                   "value": UnitedStates
@@ -123,7 +123,7 @@
               ]
             },
             {
-              "name": "Low",
+              "name": "Low Income",
               "children": [{
                   "name": "Haiti",
                   "value": Haiti
@@ -139,7 +139,7 @@
         { //South America
           "name": "South America",
           "children": [{
-              "name": "High",
+              "name": "High Income",
               "children": [{
                   "name": "Chile",
                   "value": Chile
@@ -151,7 +151,7 @@
               ]
             },
             {
-              "name": "Low",
+              "name": "Low Income",
               "children": [{
                   "name": "Monsterrat",
                   "value": Montserrat
@@ -167,7 +167,7 @@
         { //Europe
           "name": "Europe",
           "children": [{
-              "name": "High",
+              "name": "High Income",
               "children": [{
                   "name": "United Kingdom",
                   "value": UnitedKingdom
@@ -179,7 +179,7 @@
               ]
             },
             {
-              "name": "Low",
+              "name": "Low Income",
               "children": [{
                   "name": "Ukraine",
                   "value": Ukraine
@@ -195,7 +195,7 @@
         { //Oceania
           "name": "Oceania",
           "children": [{
-              "name": "High",
+              "name": "High Income",
               "children": [{
                   "name": "New Zealand",
                   "value": NewZealand
@@ -207,7 +207,7 @@
               ]
             },
             {
-              "name": "Low",
+              "name": "Low Income",
               "children": [{
                   "name": "Solomon Islands",
                   "value": SolomonIslands
