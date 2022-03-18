@@ -225,6 +225,26 @@
       .attr("class", "YaxisZoomed")
       .attr("transform", "translate(10,30)")
       .call(d3.axisLeft(yZoomed).tickValues([]));
+      
+      //y label positioning
+      focus.append("text")
+            .attr("class", "ylabelValue")
+            .attr("text-anchor", "end")
+            .attr("y", -marginLine.left - 30)
+            .attr("x", -marginLine.top - 30)
+            .attr("dy", "1em")
+            .style("font-size", 13)
+            .attr("transform", "rotate(-90)")
+            .text("no. of hospitalizations");
+      
+      //x label positioning
+      focus.append("text")
+            .attr("class", "labelHeader")
+            .attr("text-anchor", "end")
+            .attr("x", (widthLine / 2) + 80)
+            .attr("y", 0)
+            .attr("font-size", 15)
+            .text("Daily/Weekly Hospitalization UK");
     
     //function to draw the line data
     function drawLine(data) {
