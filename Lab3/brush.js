@@ -1,7 +1,7 @@
 //add hospitalizations data
   var hospitalizations = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/covid-hospitalizations.csv";
 	
-  
+  //https://www.d3-graph-gallery.com/graph/connectedscatter_select.html
   //https://bl.ocks.org/EfratVil/92f894ac0ba265192411e73f633a3e2f
   // set the dimensions and margins of the graph where the main line chart is
   const marginLine = {
@@ -319,7 +319,7 @@
             zoomedLine(selectedData);
         	selectedData.length = 0;
         }
-				
+          
         //function to update the chart when the selection is changed
         //http://bl.ocks.org/feyderm/6bdbc74236c27a843db633981ad22c1b
         function updateChart() {
