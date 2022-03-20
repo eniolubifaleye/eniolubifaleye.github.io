@@ -322,7 +322,9 @@
     // handle error here
   })
 
- //https://www.d3indepth.com/zoom-and-pan/
+  //https://www.d3indepth.com/zoom-and-pan/
+  //https://www.geeksforgeeks.org/d3-js-zoomidentity-function/
+  //https://stackoverflow.com/questions/48790190/how-to-reset-zoom-in-d3-js
   //function to reset the zoon
   function zoomReset() {
     graph.transition().duration(500).attr("transform", d3.zoomIdentity)
