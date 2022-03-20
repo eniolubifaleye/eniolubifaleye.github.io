@@ -48,20 +48,20 @@
 
       //filters for each country for hover over bar chart
       //https://stackoverflow.com/questions/54907549/keep-only-selected-keys-in-every-object-from-array
-      let filterIreland = filteredDataIreland.map(element => Object.assign({}, ...keysKeep.map(key => ({
-        [key]: element[key]
+      let filterIreland = filteredDataIreland.map(value => Object.assign({}, ...keysKeep.map(key => ({
+        [key]: value[key]
       }))))
 
-      let filterScotland = filteredDataScotland.map(element => Object.assign({}, ...keysKeep.map(key => ({
-        [key]: element[key]
+      let filterScotland = filteredDataScotland.map(value => Object.assign({}, ...keysKeep.map(key => ({
+        [key]: value[key]
       }))))
 
-      let filterEngland = filteredDataEngland.map(element => Object.assign({}, ...keysKeep.map(key => ({
-        [key]: element[key]
+      let filterEngland = filteredDataEngland.map(value => Object.assign({}, ...keysKeep.map(key => ({
+        [key]: value[key]
       }))))
 
-      let filterWales = filteredDataWales.map(element => Object.assign({}, ...keysKeep.map(key => ({
-        [key]: element[key]
+      let filterWales = filteredDataWales.map(value => Object.assign({}, ...keysKeep.map(key => ({
+        [key]: value[key]
       }))))
 
       //"people_fully_vaccinated_per_hundred",
@@ -196,7 +196,7 @@
       }
 
       //function to initialize the dashboard
-      //fData is the data to be passed in
+      //countryData is the data to be passed in
       function dashboard(countryData) {
 
         //histogram contraints
@@ -307,7 +307,7 @@
         });
 
         // function to handle histogram.
-        function histoGram(fD) {
+        function histoGram(histoData) {
 
           var hG = {},
             //histogram contraints
@@ -330,7 +330,7 @@
             .attr("viewBox", `0 0 ` + width + ` ` +  height)
 
           //create x scale
-          var x = d3.scaleBand().domain(fD.map(function(d) {
+          var x = d3.scaleBand().domain(histoData.map(function(d) {
               return d[0];
             }))
             .range([70, width])
@@ -342,7 +342,7 @@
             .call(d3.axisBottom(x));
 
           // Create y scale
-          var y = d3.scaleLinear().range([height, 0]).domain([0, fD[2][1]]);
+          var y = d3.scaleLinear().range([height, 0]).domain([0, histoData[2][1]]);
 
           // add y-axis to the histogram svg
           var yAxis = histogramsSVG.append("g")
@@ -353,7 +353,7 @@
           //https://www.d3-graph-gallery.com/graph/histogram_basic.html
           // Create bars for histogram
           var bars = histogramsSVG.selectAll(".bar")
-            .data(fD)
+            .data(histoData)
             .enter()
             .append("g")
             .attr("class", "bar");

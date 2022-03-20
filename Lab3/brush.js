@@ -338,22 +338,22 @@
           //this is then used to access the data of that x value used to make the line graph
           var dataTable = dataFilter[sel[1]];
       
-					//push the data into array selectedData
+         //push the data into array selectedData
           selectedData.push(dataTable)
 
           // populate table if one or more elements is brushed
           if (selectedData.length > 0) {
           
           	//call the function to clear the table
-            clearTableRows();
+            clearTable();
             //for each array object in selected data call the populateTableRow with data in d_row
             selectedData.forEach(d_row => populateTableRow(d_row))
           } else {
-            clearTableRows();
+            clearTable();
           }
         }
 				
-        //populate the tables row
+        //populate the tables rows
         function populateTableRow(d_row) {
         	//calls the function to show the table column names 
           showTableColNames();
@@ -421,7 +421,7 @@
       }
 			
       //clear table from html
-      function clearTableRows() {
+      function clearTable() {
       	//call function to hide the table column names and remove all the rows
         hideTableColNames();
         d3.selectAll(".rowData").remove();
@@ -430,8 +430,8 @@
       // When the button is changed, run the updateChart function
       d3.select("#selectButton").on("change", function(event, d) {
 				
-        //clear the table rows and remove the brush from the context svg when a data set is changed
-        clearTableRows();
+        //clear the table and remove the brush from the context svg when a data set is changed
+        clearTable();
         context.select(".brush").remove();
         // recover the option that has been chosen
         let selectedOption = d3.select(this).property("value")

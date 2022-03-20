@@ -60,9 +60,9 @@
 
     //function to delete variabl object names from the set
     //https://stackoverflow.com/questions/24864613/delete-multiple-object-properties
-    function deleteProps(obj, prop) {
-      for (const p of prop) {
-        (p in obj) && (delete obj[p]);
+    function deleteProps(obj, keyValue) {
+      for (const k of keyValue) {
+        (k in obj) && (delete obj[k]);
       }
     }
 
@@ -347,44 +347,44 @@
 
     //filters for each continent for hover over circle
     //https://stackoverflow.com/questions/54907549/keep-only-selected-keys-in-every-object-from-array
-    let filterNorth = totalCasesCountry.map(element => Object.assign({}, ...keysNorthKeep.map(key => ({
-      [key]: element[key]
+    let filterNorth = totalCasesCountry.map(value => Object.assign({}, ...keysNorthKeep.map(key => ({
+      [key]: value[key]
     }))))
 
-    let filterSouth = totalCasesCountry.map(element => Object.assign({}, ...keysSouthKeep.map(key => ({
-      [key]: element[key]
+    let filterSouth = totalCasesCountry.map(value => Object.assign({}, ...keysSouthKeep.map(key => ({
+      [key]: value[key]
     }))))
 
-    let filterAfrica = totalCasesCountry.map(element => Object.assign({}, ...keysAfricaKeep.map(key => ({
-      [key]: element[key]
+    let filterAfrica = totalCasesCountry.map(value => Object.assign({}, ...keysAfricaKeep.map(key => ({
+      [key]: value[key]
     }))))
 
-    let filterEurope = totalCasesCountry.map(element => Object.assign({}, ...keysEuropeKeep.map(key => ({
-      [key]: element[key]
+    let filterEurope = totalCasesCountry.map(value => Object.assign({}, ...keysEuropeKeep.map(key => ({
+      [key]: value[key]
     }))))
 
-    let filterOceania = totalCasesCountry.map(element => Object.assign({}, ...keysOceaniaKeep.map(key => ({
-      [key]: element[key]
+    let filterOceania = totalCasesCountry.map(value => Object.assign({}, ...keysOceaniaKeep.map(key => ({
+      [key]: value[key]
     }))))
 
-    let filterAsia = totalCasesCountry.map(element => Object.assign({}, ...keysAsiaKeep.map(key => ({
-      [key]: element[key]
+    let filterAsia = totalCasesCountry.map(value => Object.assign({}, ...keysAsiaKeep.map(key => ({
+      [key]: value[key]
     }))))
     
     //https://stackoverflow.com/questions/6942137/rename-the-keys-in-an-object
     //change the keys names function
-    function renameProperty(obj, fromKey, toKey) {
-      obj[toKey] = obj[fromKey];
-      delete obj[fromKey];
+    function renameKeys(obj, oldKey, newKey) {
+      obj[newKey] = obj[oldKey];
+      delete obj[oldKey];
     }
 
     //change each of the datasets keys
-    filterNorth.forEach(obj => renameProperty(obj, 'North America', 'value'));
-    filterSouth.forEach(obj => renameProperty(obj, 'South America', 'value'));
-    filterAfrica.forEach(obj => renameProperty(obj, 'Africa', 'value'));
-    filterEurope.forEach(obj => renameProperty(obj, 'Europe', 'value'));
-    filterOceania.forEach(obj => renameProperty(obj, 'Oceania', 'value'));
-    filterAsia.forEach(obj => renameProperty(obj, 'Asia', 'value'));
+    filterNorth.forEach(obj => renameKeys(obj, 'North America', 'value'));
+    filterSouth.forEach(obj => renameKeys(obj, 'South America', 'value'));
+    filterAfrica.forEach(obj => renameKeys(obj, 'Africa', 'value'));
+    filterEurope.forEach(obj => renameKeys(obj, 'Europe', 'value'));
+    filterOceania.forEach(obj => renameKeys(obj, 'Oceania', 'value'));
+    filterAsia.forEach(obj => renameKeys(obj, 'Asia', 'value'));
 
 
     //xExtent for the line graph
