@@ -196,8 +196,8 @@
       }
 
       //function to initialize the dashboard
-      //id takes in the html elements id and fData is the data to be passed in
-      function dashboard(id, countryData) {
+      //fData is the data to be passed in
+      function dashboard(countryData) {
 
         //histogram contraints
         var marginCountry = {
@@ -212,7 +212,7 @@
         var heightCountry = 300 - marginCountry.top - marginCountry.bottom;
 
         //create svg for line graph 
-        var svgCountry = d3.select(id)
+        var svgCountry = d3.select("#dashboard")
           .append("svg").attr("width", widthCountry + marginCountry.left + marginCountry.right)
           .attr("height", heightCountry + marginCountry.top + marginCountry.bottom)
           .append("g")
@@ -323,7 +323,7 @@
           var height = 300 - margins.top - margins.bottom;
 
           //create svg for histogram.
-          var histogramsSVG = d3.select(id).append("svg").attr("class", "histogramSVG")
+          var histogramsSVG = d3.select("#dashboard").append("svg").attr("class", "histogramSVG")
             .attr("width", width + margins.left + margins.right)
             .attr("height", height + margins.top + margins.bottom).append("g")
             .attr("transform", "translate(" + margins.left + "," + margins.top + ")")
@@ -505,7 +505,7 @@
           marginP.radius = Math.min(marginP.width, marginP.height) / 2;
 
           // create svg for pie chart.
-          var piesvg = d3.select(id).append("svg").attr("class", "histogramSVG")
+          var piesvg = d3.select("#dashboard").append("svg").attr("class", "histogramSVG")
             .attr("width", marginP.width).attr("height", marginP.height).append("g")
             .attr("transform", "translate(" + marginP.width / 2 + "," + marginP.height / 2 + ")")
             .attr("viewBox", `0 0 ` + width + ` ` +  height);
@@ -791,8 +791,8 @@
         }
       }
 
-      //call the dashboard function with the div id #dashboard and the dataset we created ukData
-      dashboard("#dashboard", ukData);
+      //call the dashboard function with the dataset created ukData
+      dashboard(ukData);
 
     }).catch(function(err) {
       // handle error here
