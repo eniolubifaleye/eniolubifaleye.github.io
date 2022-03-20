@@ -218,7 +218,7 @@
           .append("g")
           .attr("transform", "translate(" + marginCountry.left + "," + marginCountry.top + ")")
           .attr("viewBox", `0 0 ` + widthCountry + ` ` +  heightCountry)
-
+          .on("click", resetLineGraph);
         // X bottom axis for main line graph
         var xCountry = d3.scaleTime()
           .range([0, widthCountry], .1)
@@ -429,7 +429,6 @@
 
             // call update functions of pie-chart and legend.    
             pC.update(newData);
-            leg.update(newData);
 
             //if statements to check the country of the state variable
             //if the country matches call the drawLine function with the respective
@@ -455,8 +454,6 @@
           function mouseout(d) {
             // reset the pie-chart and legend.    
             pC.update(totalValues);
-            leg.update(totalValues);
-
             d3.select(".lineDCountry").transition().duration(500).style("opacity", 0).remove();
             d3.select(".ylabelDaily").transition().duration(500).style("opacity", 0).remove();
           }
@@ -492,6 +489,7 @@
 
         // function to create the pie chart
         function pieChart(pieData) {
+            //https://d3-graph-gallery.com/graph/pie_basic.html
           var pC = {}
 
           //pie chart dimensions
@@ -575,11 +573,6 @@
 
           //reset the bars of the histogram to before they were hovered over
           function mouseout(d) {
-            d3.selectAll(".lineDCountryMultiple").transition().duration(200).style("opacity", 0).remove();
-            d3.selectAll(".countryLegend").transition().duration(200).style("opacity", 0).remove();
-            d3.selectAll(".countryLegendText").transition().duration(200).style("opacity", 0).remove();
-            d3.selectAll(".ylabelCountry").transition().duration(200).style("opacity", 0).remove();
-            
               
             // call the update function of histogram with all data.
             //use the hG.update function and pass in the mapped data of each country and value from ukData
@@ -600,70 +593,11 @@
           }
           return pC;
         }
-
-        // function to create the animated legend
-        function legend(legendData) {
-          var leg = {};
-
-          //https://www.d3-graph-gallery.com/graph/custom_legend.html
-          // create table for legend.
-          var legend = d3.select(id).append("table").attr('class', 'legend');
-
-          // create one row per segment.
-          var tr = legend.append("tbody").selectAll("tr").data(legendData).enter().append("tr");
-
-          // create the first column for each segment.
-          tr.append("td").append("svg").attr("width", '16')
-            .attr("height", '16').append("rect")
-            .attr("width", '16').attr("height", '16')
-            .attr("fill", function(d) {
-              return pieSectionColour(d.type);
-            });
-
-          // create the second column for each segment.
-          tr.append("td").text(function(d) {
-            return d.type;
-          });
-
-          // create the third column for each segment.
-          tr.append("td").attr("class", 'legendFreq')
-            .text(function(d) {
-              return d3.format(",")(d.totals);
-            });
-
-          // create the fourth column for each segment.
-          tr.append("td").attr("class", 'legendPerc')
-            .text(function(d) {
-              return getLegend(d, legendData);
-            });
-
-
-          leg.update = function(newData) {
-            // update the data attached to the row elements.
-            var l = legend.select("tbody").selectAll("tr").data(newData);
-
-            // update the frequencies.
-            l.select(".legendFreq").transition().duration(500).text(function(d) {
-              return d3.format(",")(d.totals);
-            });
-
-            // update the percentage column.
-            l.select(".legendPerc").transition().duration(500).text(function(d) {
-              return getLegend(d, newData);
-            });
-          }
-
-          function getLegend(d, aD) { // Utility function to compute percentage.
-            return d3.format(".2%")(d.totals / d3.sum(aD.map(function(v) {
-              return v.totals;
-            })));
-          }
-
-          return leg;
-        }
-
+        
+       let dataTypes = ['totalVacc', 'peopleVacc', 'peopleFully', "totalBoost"];
+          
         // calculate total values by segment for all Countries.
-        var totalValues = ['totalVacc', 'peopleVacc', 'peopleFully', "totalBoost"].map(function(d) {
+        var totalValues = dataTypes.map(function(d) {
           return {
             type: d,
             totals: d3.sum(countryData.map(function(t) {
@@ -671,18 +605,18 @@
             }))
           };
         });
-
-        // calculate total frequency by state for all segments
-        var sF = countryData.map(function(d) {
-          return [d.Country, d.total];
-        })
+        
+        var graphData = [];
+        
+        for(var i = 0; i < countryData.length; i++){
+        	graphData[i] = [countryData[i].Country, countryData[i].total]
+        }
+       
 
         //initiate the histogram with the total frequency for the types in totals variable
-        //initiaate the pie chart and legend with the total values calculated
+        //initiate the pie chart with the total values calculated
         //pie chart used to change the bar chart
-        var hG = histoGram(sF),
-          pC = pieChart(totalValues),
-          leg = legend(totalValues);
+        var hG = histoGram(graphData), pC = pieChart(totalValues)
 
 
         function drawMultipleCountry(lineCountryData) {
@@ -849,6 +783,10 @@
 
         //function to reset the line graph
         function resetLineGraph() {
+          d3.selectAll(".lineDCountryMultiple").transition().duration(200).style("opacity", 0).remove();
+          d3.selectAll(".countryLegend").transition().duration(200).style("opacity", 0).remove();
+          d3.selectAll(".countryLegendText").transition().duration(200).style("opacity", 0).remove();
+          d3.selectAll(".ylabelCountry").transition().duration(200).style("opacity", 0).remove();
           
         }
       }
