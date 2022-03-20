@@ -261,7 +261,8 @@
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
       .call(zoom);
 
-   
+    
+    //  https://www.d3-graph-gallery.com/graph/custom_legend.html
       //adding the legend to the graph to display which colour is which vaccine
    //creating the rect sizes
     var size = 15
