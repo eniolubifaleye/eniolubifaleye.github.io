@@ -21,13 +21,14 @@
     .attr("transform",
       "translate(" + margin.left + "," + margin.top + ")")
     .attr("viewBox", `0 0 ` + width + ` ` +  height)
-
+  
+  //https://stackoverflow.com/questions/68519988/simple-pan-and-zoom-in-d3-v7
   //handle zoom events for the svg container
   function handleZoom(e) {
     graph.attr('transform', e.transform);
   }
 
-
+ //https://www.d3-graph-gallery.com/graph/interactivity_zoom.html
   //cant zoom out from initial graph set 
   let zoom = d3.zoom()
     .scaleExtent([1, 5])
@@ -186,7 +187,7 @@
 
     document.getElementById("table").innerHTML = html;
 
-		//https://www.d3-graph-gallery.com/graph/barplot_stacked_basicWide.html
+//https://www.d3-graph-gallery.com/graph/barplot_stacked_basicWide.html
     var subgroups = ["moderna", "pfizer", "johnson", "oxford"];
     var groups = d3.map(stackedData, function(d) {
       return (d.source)
@@ -321,6 +322,7 @@
     // handle error here
   })
 
+ //https://www.d3indepth.com/zoom-and-pan/
   //function to reset the zoon
   function zoomReset() {
     graph.transition().duration(500).attr("transform", d3.zoomIdentity)
