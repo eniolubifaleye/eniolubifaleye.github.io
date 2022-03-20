@@ -1,3 +1,17 @@
+//https://worldpopulationreview.com/country-rankings/poorest-countries-in-africa
+//https://worldpopulationreview.com/country-rankings/richest-african-countries
+//https://worldpopulationreview.com/country-rankings/poorest-asian-countries
+//https://worldpopulationreview.com/country-rankings/richest-asian-countries
+//https://worldpopulationreview.com/country-rankings/poorest-countries-in-north-america
+//https://worldpopulationreview.com/country-rankings/richest-countries-in-north-america
+//https://worldpopulationreview.com/country-rankings/poorest-countries-in-europe
+//https://worldpopulationreview.com/country-rankings/richest-european-countries
+//https://worldpopulationreview.com/country-rankings/richest-countries-in-south-america
+//https://worldpopulationreview.com/country-rankings/poorest-countries-in-south-america
+//https://statisticstimes.com/economy/oceanian-countries-by-gdp.php#:~:text=Australia%20(%24258%20bn)%20and,top%2050%20world%20gdp%20ranking.
+//https://www.worldatlas.com/articles/the-poorest-countries-in-oceania.html
+
+
 //add totalDeaths dataset
   var totalDeaths = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/total_deaths.csv";
 
@@ -222,6 +236,8 @@
         }
       ]
     }
+    
+    //https://www.d3-graph-gallery.com/graph/dendrogram_basic.html
 		
     //https://bl.ocks.org/mbostock/2966094
 		//create a tree layout of cluster using

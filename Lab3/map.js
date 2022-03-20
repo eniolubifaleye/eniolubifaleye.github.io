@@ -35,6 +35,7 @@
 
 
   //adding the datasets for the promise all from my github into variable names
+//https://github.com/holtzy/D3-graph-gallery/blob/master/DATA/world.geojson
   var totalDeaths = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/total_deaths.csv";
   var geojson = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/world.geojson";
   var locations = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/locations.csv";
@@ -66,6 +67,7 @@
     }
 
     //create a dataset for the markers for where the circles would be positioned on the map
+      //https://www.latlong.net/
     const markers = [{
         long: -110.037361,
         lat: 47.942840,
@@ -114,7 +116,8 @@
     //function call to delete the irrelavant keys from the object
     deleteProps(totalDeaths, ['Africa', 'date', 'Asia', 'Europe', 'European Union', 'High income', 'International', 'Low income', 'Lower middle income', 'Oceania', 'Upper middle income', 'World', 'Eritrea', 'North America', 'South America', 'Vatican', 'Marshall Islands']);
 
-
+      
+    //https://stackoverflow.com/questions/10024866/remove-object-from-array-using-javascript
     //for loops to remove the uneeded entries from the locations dataset
     for (var i = 0; i < locationsMap.length; i++) {
       if (locationsMap[i].iso_code.includes("OWID") || locationsMap[i].iso_code.includes("SXM")) {
@@ -153,8 +156,8 @@
 
     let totalDeathsKeys = [];
     let totalDeathsValues = [];
-
-
+      
+      //https://stackoverflow.com/questions/51313811/d3-keys-syntax-clarification
     //for loop to populate the newly created arrays with objects keys and value pairs
     for (var i = 0; i < Object.keys(totalDeaths).length; i++) {
       totalDeathsKeys.push(Object.keys(totalDeaths)[i]);
@@ -163,6 +166,7 @@
 
 
     //update the keys adn values arrays so that the iso_code, keys and values can be mapped well
+    // https://stackoverflow.com/questions/24909371/move-item-in-array-to-last-position
     totalDeathsKeys.push("Jersey");
     totalDeathsKeys.push(totalDeathsKeys.splice(totalDeathsKeys.indexOf("Kosovo"), 1)[0]);
     totalDeathsKeys.push(totalDeathsKeys.splice(totalDeathsKeys.indexOf("Micronesia (country)"), 1)[0]);
@@ -202,6 +206,7 @@
     //select the rest of the countries and fade them out
     //the selected country is highlighted and a tooltip of the countrys
     //name and total deaths are shown 
+    //https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
     function mouseOver(d, i) {
       d3.selectAll(".Country")
         .transition()
@@ -301,7 +306,9 @@
     var mouseleave = function(event, d) {
       Tooltip.style("opacity", 0)
     }
-
+    
+    //https://www.d3-graph-gallery.com/graph/bubblemap_tooltip.html
+    //https://www.d3-graph-gallery.com/graph/bubblemap_basic.html
     svgMap
       .selectAll("myCircles")
       .data(markers)
@@ -363,7 +370,8 @@
     let filterAsia = totalCasesCountry.map(element => Object.assign({}, ...keysAsiaKeep.map(key => ({
       [key]: element[key]
     }))))
-
+    
+    //https://stackoverflow.com/questions/6942137/rename-the-keys-in-an-object
     //change the keys names function
     function renameProperty(obj, fromKey, toKey) {
       obj[toKey] = obj[fromKey];

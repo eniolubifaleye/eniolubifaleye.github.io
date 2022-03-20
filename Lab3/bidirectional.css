@@ -10,21 +10,3 @@
 .pieChartPath {  stroke: #fff; }
 path:hover {  opacity:0.9; }
 .rectBi:hover {  fill:lightgreen; }
-
-.legend{
-    margin-bottom:76px;
-    display:inline-block;
-    border-collapse: collapse;
-    border-spacing: 0px;
-}
-.legend td{
-    padding:4px 10px;
-    vertical-align:bottom;
-}
-.legendFreq, .legendPerc{
-    text-align:right;
-    width:50px;
-}
-
-.legend tr{    border-bottom:1px solid grey; }
-.legend tr:first-child{    border-top:1px solid grey; }
