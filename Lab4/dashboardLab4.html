@@ -4,6 +4,8 @@
     <script src='https://d3js.org/d3.v7.min.js'></script>
     <link rel="stylesheet" href="dashboardLab4.css">
     <link rel="stylesheet" href="clusterForce.css">
+    <link rel="stylesheet" href="multipleLine.css">
+    <link rel="stylesheet" href="multipleBar.css">
     
 </head> 
 <body>    
@@ -21,10 +23,32 @@
             </table>
         </div>
     </div>
-   
+    
+    <!-- Create a div where the graph will take place -->
+    <div id="my_dataviz">
+        <!-- Add buttons -->
+        <button class="premierLeague">Premier League</button>
+        <button class="laLiga">La Liga</button>
+        <button class="ligue1">Ligue 1</button>
+        <button class="serieA">Serie A</button>
+        <button class="bundesliga">Bundesliga</button>
+    </div>
+    
+    <!-- Create a div where the graph will take place -->
+    <div class="dataMR">
+      <!-- Add buttons -->
+      <button class="MR2016">2016</button>
+      <button class="MR2017">2017</button>
+      <button class="MR2018">2018</button>
+      <button class="MR2019">2019</button>
+      <button class="MR2020">2020</button>
+    </div>
+
     
     <!-- Load exercise script -->
     <script src='./clusterForce.js'></script>
+    <script src='./multipleLine.js'></script>
+    <script src='./multipleBar.js'></script>
     
 </body> 
 </html> 

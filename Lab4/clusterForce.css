@@ -13,4 +13,7 @@
 
 .svgCircles{
     background-color: white;
+    border-color: blue;
+    border-style:solid;
+    border-width: thick;
 }
