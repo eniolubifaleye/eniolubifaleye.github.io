@@ -1,16 +1,14 @@
  /* added styling to the buttons */
   button {
-    background-color: #69b3a2;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    border-radius: 2px;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    transition-duration: 1s;
-    align-items: left;
+  color:white;
+  display: block;
+  margin: 20px;
+  padding: 7px 35px;
+  font-family: sans-serif;
+  font-size: 0.7em;
+  background-color: blue;
+  border: 3px solid black;
+  cursor: pointer;
   }
 
   button:hover {
@@ -24,11 +22,14 @@
     border-color: blue;
     border-style:solid;
     border-width: thick;
+    text-align: center;
   }
 
   .clubTooltip {
     display: none;
     width: 250px;
-    left:0;
-    top: 0; 
+    float: right;
+      margin: 50px auto;
+      margin-right: 340px;
+      margin-left: 50px;
   }

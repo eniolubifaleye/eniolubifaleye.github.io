@@ -170,6 +170,25 @@
             "Shots Per Average Match: " + i["Shots Per Avg Match"] + "<br>" +
             "xG Per Average Match: " + i["xG Per Avg Match"] + "<br>" +
             "No. of Substitutions: " + i["Substitution "])
+          
+           //added a class to the text val so that it can be removed in the onMouseout
+        //function
+        svgMR.append("text")
+          .attr('class', 'val')
+          //altered the code so that the value of the text is placed directly on
+          //top of the bar
+          //adding the data "d" into the function as an arguement and returning 
+          //the indexed data "i" as its x and y parameters
+          .attr('x', function(d) {
+            return xMR(i["Player Names"]) + xMR.bandwidth() / 2;
+          })
+          .attr('y', function(d) {
+            return yMR(i.Goals);
+          })
+          .attr("text-anchor", "middle")
+          .text(function(d) {
+            return i.Goals;
+          }); // Value of the text 
       }
 			
       //function for when the mouse isnt hovering over a bar in bar graph
@@ -178,6 +197,10 @@
         //remove the pie chart
         rmTooltip.transition().duration(500).style("opacity", 0)
         d3.selectAll(".pieRM").transition().duration(500).style("opacity", 0).remove();
+          
+        //select the class val, which is the text in onMouseOver and remove the text
+        d3.selectAll('.val')
+          .remove()
       }
 			
       //draw the bars 
@@ -202,7 +225,7 @@
         .attr("height", function(d) {
           return heightMR - yMR(+d.Goals);
         })
-        .attr("fill", "#69b3a2")
+        .attr("fill", "blue")
     }
 		
     
@@ -217,6 +240,10 @@
 			
       //array to hold expected goals and goals value from bar hover
       var expectedGoals = [+data.Goals, +data.xG]
+      
+      //http://bl.ocks.org/zanarmstrong/05c1e95bf7aa16c4768e
+      //create a variable to hold the goal ratio for each player and each season
+      var goalRatio = [d3.format(".3n")(+data.Goals / +data.Matches_Played)]
 			
       //array to hold the values for the legend
       var legend = ["xG (Expected Goals)", "Goals"]
@@ -292,6 +319,49 @@
             d.startAngle = i(t);
             return arc(d);
           }
+        });
+        
+        //append goals text to the middle of the pie chart
+      svgPie.append("text")
+        .attr("fill", function(d, i) {
+          return color(i+1);
+        })
+        .attr("class", "pieRM")
+        //anchor the text to the middle of each arc
+        .attr("text-anchor", "middle")
+        .attr("y", heightPie/22 - 20)
+        .data(expectedGoals)
+        //return the value of each arc
+        .text(function(d, i) {
+          return expectedGoals[0] + " Goals";
+        });
+        
+        //append expected goals to the middle of the pie chart
+         svgPie.append("text")
+        .attr("fill", function(d, i) {
+          return color(i);
+        })
+        .attr("class", "pieRM")
+        //anchor the text to the middle of each arc
+        .attr("text-anchor", "middle")
+        .attr("y", heightPie/20 - 7)
+        .data(expectedGoals)
+        //return the value of each arc
+        .text(function(d, i) {
+          return expectedGoals[1] + " xG";
+        });
+        
+        //adding the goal ratio to middle of the pie chart
+        svgPie.append("text")
+        .attr("fill", "black")
+        .attr("class", "pieRM")
+        //anchor the text to the middle of each arc
+        .attr("text-anchor", "middle")
+        .attr("y", heightPie/11 - 5)
+        .data(goalRatio)
+        //return the value of each arc
+        .text(function(d, i) {
+          return goalRatio[0] + " p/game";
         });
     }
 		

@@ -1,6 +1,6 @@
  /* added styling to the buttons */
   button {
-    background-color: #69b3a2;
+    background-color: blue;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -23,9 +23,11 @@
     border-color: blue;
     border-style:solid;
     border-width: thick;
+    text-align: center;
   }
 
   .rmTooltip {
     display: none;
-    width: 550px
+    width: 550px;
+    margin-left: 125px;
   }

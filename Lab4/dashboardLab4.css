@@ -7,8 +7,28 @@ html { overflow-y: scroll; }
     height: 90px;
     padding-top: 35px;
     color: white;
+    /* altering the default font */
+    /* https://www.w3schools.com/css/tryit.asp?filename=trycss_font-family */
+    font-family: "Lucida Console", "Courier New", monospace;
 }
 
 body{
     background-color: lightgray;
+}
+
+.textDiv{
+    margin: 50px auto;
+    background-color: white;
+    border-color: blue;
+    border-style:solid;
+    border-width: thick;
+    width: 1100px;
+    
+}
+
+.pText{
+    margin: 10px auto; 
+    /* altering the default font */
+    /* https://www.w3schools.com/css/tryit.asp?filename=trycss_font-family */
+    font-family: "Lucida Console", "Courier New", monospace;
 }

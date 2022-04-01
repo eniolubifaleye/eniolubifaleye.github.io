@@ -102,7 +102,7 @@
 
     // X bottom axis for line graphs
     var xMultiple = d3.scalePoint()
-      .range([0, widthLines])
+      .range([0, widthLines - 25])
       .domain(uniqueSeason)
 
     //call and draw x axis
