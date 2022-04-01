@@ -16,4 +16,6 @@
     border-color: blue;
     border-style:solid;
     border-width: thick;
+    margin: 50px auto;
+    width: 1300px;
 }
