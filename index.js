@@ -253,3 +253,9 @@ document.getElementById("link42").onmousedown = function(event) {
         window.open("./Lab3/dashboard.html")
     }
 }
+
+document.getElementById("link48").onmousedown = function(event) {
+    if (event.which == 3) {
+        window.open("./Lab4/dashboardLab4.html")
+    }
+}
