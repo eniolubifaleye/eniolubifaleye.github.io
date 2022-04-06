@@ -1,5 +1,5 @@
 //https://www.kaggle.com/datasets/jehanbhathena/big-5-european-football-leagues-stats
-  var top6 = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/Big%205%20European%20football%20leagues%20teams%20stats.csv";
+  const top6 = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/Big%205%20European%20football%20leagues%20teams%20stats.csv";
 
   // set the dimensions and margins of the Line Graph
   const marginLines = {
@@ -20,63 +20,63 @@
 		
     //filter the data for the 5 major leagues to get the top 6 teams
     //in each league
-    var filteredPremier = data.filter(function(d) {
-      return d.competition == "Premier League" &&
-        (d.squad == "Manchester United" ||
-          d.squad == "Manchester City" ||
-          d.squad == "Chelsea" ||
-          d.squad == "Arsenal" ||
-          d.squad == "Liverpool" ||
-          d.squad == "Tottenham")
+    const filteredPremier = data.filter(function(dFilterP) {
+      return dFilterP.competition == "Premier League" &&
+        (dFilterP.squad == "Manchester United" ||
+          dFilterP.squad == "Manchester City" ||
+          dFilterP.squad == "Chelsea" ||
+          dFilterP.squad == "Arsenal" ||
+          dFilterP.squad == "Liverpool" ||
+          dFilterP.squad == "Tottenham")
     })
 
-    var filteredLaLiga = data.filter(function(d) {
-      return d.competition == "La Liga" &&
-        (d.squad == "Real Madrid" ||
-          d.squad == "Barcelona" ||
-          d.squad == "Atlético Madrid" ||
-          d.squad == "Sevilla" ||
-          d.squad == "Valencia" ||
-          d.squad == "Villarreal")
+     const filteredLaLiga = data.filter(function(dFilterL) {
+      return dFilterL.competition == "La Liga" &&
+        (dFilterL.squad == "Real Madrid" ||
+          dFilterL.squad == "Barcelona" ||
+          dFilterL.squad == "Atlético Madrid" ||
+          dFilterL.squad == "Sevilla" ||
+          dFilterL.squad == "Valencia" ||
+          dFilterL.squad == "Villarreal")
     })
 
-    var filteredLigue1 = data.filter(function(d) {
-      return d.competition == "Ligue 1" &&
-        (d.squad == "Paris S-G" ||
-          d.squad == "Lille" ||
-          d.squad == "Marseille" ||
-          d.squad == "Monaco" ||
-          d.squad == "Lyon" ||
-          d.squad == "Rennes")
+    const filteredLigue1 = data.filter(function(dFilterL1) {
+      return dFilterL1.competition == "Ligue 1" &&
+        (dFilterL1.squad == "Paris S-G" ||
+          dFilterL1.squad == "Lille" ||
+          dFilterL1.squad == "Marseille" ||
+          dFilterL1.squad == "Monaco" ||
+          dFilterL1.squad == "Lyon" ||
+          dFilterL1.squad == "Rennes")
     })
 
-    var filteredSerieA = data.filter(function(d) {
-      return d.competition == "Serie A" &&
-        (d.squad == "Juventus" ||
-          d.squad == "Roma" ||
-          d.squad == "Napoli" ||
-          d.squad == "Inter" ||
-          d.squad == "Milan" ||
-          d.squad == "Atalanta")
+    const filteredSerieA = data.filter(function(dFilterS) {
+      return dFilterS.competition == "Serie A" &&
+        (dFilterS.squad == "Juventus" ||
+          dFilterS.squad == "Roma" ||
+          dFilterS.squad == "Napoli" ||
+          dFilterS.squad == "Inter" ||
+          dFilterS.squad == "Milan" ||
+          dFilterS.squad == "Atalanta")
     })
 
-    var filteredBundesliga = data.filter(function(d) {
-      return d.competition == "Fußball-Bundesliga" &&
-        (d.squad == "Bayern Munich" ||
-          d.squad == "RB Leipzig" ||
-          d.squad == "M'Gladbach" ||
-          d.squad == "Leverkusen" ||
-          d.squad == "Dortmund" ||
-          d.squad == "Schalke 04")
+    const filteredBundesliga = data.filter(function(dFilterB) {
+      return dFilterB.competition == "Fußball-Bundesliga" &&
+        (dFilterB.squad == "Bayern Munich" ||
+          dFilterB.squad == "RB Leipzig" ||
+          dFilterB.squad == "M'Gladbach" ||
+          dFilterB.squad == "Leverkusen" ||
+          dFilterB.squad == "Dortmund" ||
+          dFilterB.squad == "Schalke 04")
     })
 		
     //https://d3-graph-gallery.com/graph/line_smallmultiple.html
     //group data from each major league filtered daa by squad name
-    const groupPremier = d3.group(filteredPremier, d => d.squad)
-    const groupLaLiga = d3.group(filteredLaLiga, d => d.squad)
-    const groupLigue1 = d3.group(filteredLigue1, d => d.squad)
-    const groupSerieA = d3.group(filteredSerieA, d => d.squad)
-    const groupBundesliga = d3.group(filteredBundesliga, d => d.squad)
+    const groupPremier = d3.group(filteredPremier, dP => dP.squad)
+    const groupLaLiga = d3.group(filteredLaLiga, dL => dL.squad)
+    const groupLigue1 = d3.group(filteredLigue1, dL1 => dL1.squad)
+    const groupSerieA = d3.group(filteredSerieA, dS => dS.squad)
+    const groupBundesliga = d3.group(filteredBundesliga, dB => dB.squad)
 
     // Add an svg element for each group. The will be one beside each other and will 
     //go on the next row when no more room available
@@ -92,8 +92,8 @@
         `translate(${marginLines.leftLines},${marginLines.topLines})`);
 		
     //create variable to hold mapped season from dataset filteredPremier
-    var season = filteredPremier.map(function(d) {
-      return d.season
+    var season = filteredPremier.map(function(dSeason) {
+      return dSeason.season
     })
     
     //https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
@@ -101,20 +101,20 @@
     var uniqueSeason = [...new Set(season)];
 
     // X bottom axis for line graphs
-    var xMultiple = d3.scalePoint()
+    const xMultiple = d3.scalePoint()
       .range([0, widthLines - 25])
       .domain(uniqueSeason)
 
     //call and draw x axis
-    var xAxisMultiple = svgMultiple.append("g")
+    const xAxisMultiple = svgMultiple.append("g")
       .attr("class", "XaxisMultiple")
       .attr("transform", "translate(0," + heightLines + ")")
       .call(d3.axisBottom(xMultiple));
 
     //Add Y axis for line graphs
     var yMultiple = d3.scaleLinear()
-      .domain([d3.max(filteredPremier, function(d) {
-        return +d.rank;
+      .domain([d3.max(filteredPremier, function(dYMultiple) {
+        return +dYMultiple.rank;
       }), 1])
       .range([heightLines, 0]);
 		
@@ -164,10 +164,10 @@
       //update the data bound to the svg
       svgMultiple.data(groupData)
 
-      //update the domain for each y axis
+       //update the domain for each y axis
       yMultiple
-        .domain([d3.max(data, function(d) {
-          return +d.rank;
+        .domain([d3.max(data, function(dYMultiple) {
+          return +dYMultiple.rank;
         }), 1])
 			
       //call the new y axis and transitio between the old one 
@@ -176,26 +176,26 @@
         .duration(1000)
         .call(d3.axisLeft(yMultiple));
 
-      // Draw the line with updated data
+       // Draw the line with updated data
       svgMultiple
         .append("path")
         .attr("class", "clubLine")
         .transition()
         .duration(500)
         .attr("fill", "none")
-        .attr("stroke", function(d) {
-          return color(d[0])
+        .attr("stroke", function(dLine) {
+          return color(dLine[0])
         })
         .attr("stroke-width", 1.9)
-        .attr("d", function(d) {
+        .attr("d", function(dLine) {
           return d3.line()
-            .x(function(d) {
-              return xMultiple(d.season);
+            .x(function(dLine) {
+              return xMultiple(dLine.season);
             })
-            .y(function(d) {
-              return yMultiple(+d.rank);
+            .y(function(dLine) {
+              return yMultiple(+dLine.rank);
             })
-            (d[1])
+            (dLine[1])
         })
 
       // Add the club names 
@@ -207,11 +207,11 @@
         .attr("text-anchor", "start")
         .attr("y", -5)
         .attr("x", 0)
-        .text(function(d) {
-          return (d[0])
+        .text(function(dLine) {
+          return (dLine[0])
         })
-        .style("fill", function(d) {
-          return color(d[0])
+        .style("fill", function(dLine) {
+          return color(dLine[0])
         })
 			
       	//function to log the event of a mouse over a data point
@@ -246,17 +246,17 @@
 
       // Add the data points
       svgMultiple.selectAll("myCircles")
-        .data(function(d) {
-          return d[1]
+        .data(function(dPoints) {
+          return dPoints[1]
         })
         .enter()
         .append("circle")
         .attr("class", "clubCircles")
-        .attr("cx", function(d) {
-          return xMultiple(d.season)
+        .attr("cx", function(dPoints) {
+          return xMultiple(dPoints.season)
         })
-        .attr("cy", function(d) {
-          return yMultiple(+d.rank)
+        .attr("cy", function(dPoints) {
+          return yMultiple(+dPoints.rank)
         })
         .attr("r", 6)
         .attr("stroke", "#69b3a2")
@@ -275,30 +275,30 @@
       d3.selectAll(".clubName").style("opacity", 0).remove();
     }
 		
-    //select the relevant button with its class name and then on click event
+   //select the relevant button with its class name and then on click event
     //call clearGraph and updateLineGraphs with the relevant filtered data set
     //and grouped data
-    d3.select(".laLiga").on("click", function(event, d) {
+    d3.select(".laLiga").on("click", function() {
       clearGraph();
       updateLineGraphs(filteredLaLiga, groupLaLiga)
     })
 
-    d3.select(".premierLeague").on("click", function(event, d) {
+    d3.select(".premierLeague").on("click", function() {
       clearGraph();
       updateLineGraphs(filteredPremier, groupPremier)
     })
 
-    d3.select(".ligue1").on("click", function(event, d) {
+    d3.select(".ligue1").on("click", function() {
       clearGraph();
       updateLineGraphs(filteredLigue1, groupLigue1)
     })
 
-    d3.select(".serieA").on("click", function(event, d) {
+    d3.select(".serieA").on("click", function() {
       clearGraph();
       updateLineGraphs(filteredSerieA, groupSerieA)
     })
 
-    d3.select(".bundesliga").on("click", function(event, d) {
+    d3.select(".bundesliga").on("click", function() {
       clearGraph();
       updateLineGraphs(filteredBundesliga, groupBundesliga)
     })

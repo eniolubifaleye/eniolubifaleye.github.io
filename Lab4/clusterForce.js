@@ -19,7 +19,7 @@
 
   // setup svg with responsive svg
   //https://stackoverflow.com/questions/55629182/using-variables-into-viewbox
-  var svgCircles = d3.select(".svgCircles").append("svg")
+  const svgCircles = d3.select(".svgCircles").append("svg")
     .attr("width", widthCircles)
     .attr("height", heightCircles)
     .append("g")
@@ -36,7 +36,7 @@
       
   // setup svg with responsive svg
   //https://stackoverflow.com/questions/55629182/using-variables-into-viewbox
-  var svgBarGraph = d3.select(".svgCircles").append("svg")
+  const svgBarGraph = d3.select(".svgCircles").append("svg")
     .attr("width", widthB - 100 + margin.left + margin.right)
     .attr("height", heightB + margin.top + margin.bottom)
     .attr("transform",
@@ -79,20 +79,20 @@
   }).then(function(data) {
 		
     //filter the data to find the top 20 most valuable clubs in europe
-    var top20 = data.filter(function(d) {
-      return d.ID < 21
+    const top20 = data.filter(function(dFilter) {
+      return dFilter.ID < 21
     })
     
     //create yExtent variable for bar graph so domain can be set
-    const yExtent = d3.extent(top20, d => {
-      return d.Market_Value_Of_Club_In_Millions
+    const yExtent = d3.extent(top20, dYExtent => {
+      return dYExtent.Market_Value_Of_Club_In_Millions
     });
 
     // X bottom axis for bar graph
     var xBar = d3.scaleBand()
       .range([0, widthB - 100], .1)
-      .domain(top20.map(function(d) {
-        return d.Club_Name;
+      .domain(top20.map(function(dX) {
+        return dX.Club_Name;
       }))
       .padding(0.2);
 		
@@ -117,10 +117,10 @@
     //from Lab 1 Exercise 28
     //the higher the value of the club, the closer it is to blue
     //the value held in market value for club is scaled down by a multiple of 15
-    var myColor1 = d3.scaleLinear().domain([d3.min(top20, function(d) {
-      return d.Market_Value_Of_Club_In_Millions / 15;
-    }), d3.max(top20, function(d) {
-      return d.Market_Value_Of_Club_In_Millions / 15;
+    const myColor1 = d3.scaleLinear().domain([d3.min(top20, function(dColour) {
+      return dColour.Market_Value_Of_Club_In_Millions / 15;
+    }), d3.max(top20, function(dColour) {
+      return dColour.Market_Value_Of_Club_In_Millions / 15;
     })]).range(["red", "blue"]);
 		
     //forcedSimulation from Lab 2 Exercise 28 - 32 initialized with the top20 data 
@@ -129,8 +129,8 @@
       .force('charge', d3.forceManyBody().strength(5))
       .force('center', d3.forceCenter(widthCircles / 2, heightCircles / 2))
       //increased the forceCollide value to 
-      .force('collision', d3.forceCollide().radius(function(d) {
-        return d.Market_Value_Of_Club_In_Millions / 15
+      .force('collision', d3.forceCollide().radius(function(dCollide) {
+        return dCollide.Market_Value_Of_Club_In_Millions / 15
       }))
       .on("tick", ticked);
 
@@ -144,29 +144,29 @@
 		  
     //create the circles with the radius based on the scaled down market value
     nodes.append("circle")
-      .attr("r", function(d) {
-        return d.Market_Value_Of_Club_In_Millions / 15;
+      .attr("r", function(dCircle) {
+        return dCircle.Market_Value_Of_Club_In_Millions / 15;
       })
-      .attr('fill', function(d) {
-        return myColor1(d.Market_Value_Of_Club_In_Millions / 15)
+      .attr('fill', function(dCircle) {
+        return myColor1(dCircle.Market_Value_Of_Club_In_Millions / 15)
       })
       .append("title")
-      .text(function(d) {
-        return d.Club_Name;
+      .text(function(dCircle) {
+        return dCircle.Club_Name;
       });
 		
     //add the clubs name to each circle
     nodes.append("text")
       .attr("text-anchor", "middle")
-      .text(function(d) {
-        return d.Club_Name
+      .text(function(dCircle) {
+        return dCircle.Club_Name
       });
 		
     //function ticked to run the forcedSimulation
     //translate the x and y position of each circle during the function call
     function ticked() {
-      nodes.attr("transform", function(d) {
-        return 'translate(' + [d.x, d.y] + ')';
+      nodes.attr("transform", function(dTick) {
+        return 'translate(' + [dTick.x, dTick.y] + ')';
       })
     }
 		
@@ -190,8 +190,8 @@
 	
   	//function highlight circles used to store the brush selection x and y data
     //and call function updateCircles
-    function highlightCircles(e) {
-      brushExtent = e.selection;
+    function highlightCircles(event) {
+      brushExtent = event.selection;
       updateCircles();
     }
 		
@@ -208,20 +208,20 @@
       var barChartData = [];
 			
       //select all the circles
-      d3.selectAll(".footballCircles").each(function(d) {
+      d3.selectAll(".footballCircles").each(function(dSelect) {
 				
         //check if a circle isnt in the brush selection
         //if not make the opacity of the circle half
-        if (!isInBrushExtent(d)) {
+        if (!isInBrushExtent(dSelect)) {
           d3.select(this).style("opacity", 0.5);
         } else {
         
         //else keep its opacity and push the data selected from the brush into
         //the respective arrays
           d3.select(this).style("opacity", 1);
-          selectedData.push(d);
-          clubNameArray.push(d.Club_Name);
-          clubMarketValueArray.push(d.Market_Value_Of_Club_In_Millions)
+          selectedData.push(dSelect);
+          clubNameArray.push(dSelect.Club_Name);
+          clubMarketValueArray.push(dSelect.Market_Value_Of_Club_In_Millions)
         }
       })
 			
@@ -250,15 +250,6 @@
         clearTable();
         d3.selectAll(".footballCircles").style("opacity", 1);
       }
-    }
-
-    //show and hide the table column names
-    function hideTableColNames() {
-      d3.select("table").style("visibility", "hidden");
-    }
-
-    function showTableColNames() {
-      d3.select("table").style("visibility", "visible");
     }
 
     //clear table from html
@@ -295,20 +286,29 @@
         //append the correspoinding text from the data
         .text(d => d);
     }
+      
+      //show and hide the table column names
+    function hideTableColNames() {
+      d3.select("table").style("visibility", "hidden");
+    }
+
+    function showTableColNames() {
+      d3.select("table").style("visibility", "visible");
+    }
 	
 		//function to draw bar graphs
     function drawBarGraph(data) {
 
       //added a colour range based on each circles radius
-      var myColor2 = d3.scaleLinear().domain([d3.min(top20, function(d) {
-        return d.Market_Value_Of_Club_In_Millions / 15;
-      }), d3.max(top20, function(d) {
-        return d.Market_Value_Of_Club_In_Millions / 15;
+      const myColor2 = d3.scaleLinear().domain([d3.min(top20, function(dColour2) {
+        return dColour2.Market_Value_Of_Club_In_Millions / 15;
+      }), d3.max(top20, function(dColour2) {
+        return dColour2.Market_Value_Of_Club_In_Millions / 15;
       })]).range(["red", "blue"]);
 
       //update the y domain
-      yBar.domain([0, d3.max(data.map(function(d) {
-        return d.Club_Value;
+      yBar.domain([0, d3.max(data.map(function(dY) {
+        return dY.Club_Value;
       }))]);
 
       //update the y axis
@@ -317,8 +317,8 @@
         .call(d3.axisLeft(yBar));
 
       //update the x domain
-      xBar.domain(data.map(function(d) {
-        return d.Club_Name;
+      xBar.domain(data.map(function(dX) {
+        return dX.Club_Name;
       }))
 
       //update the y axis
@@ -327,42 +327,42 @@
         .call(d3.axisBottom(xBar));
 			  
       //draw the bars
-      var u = svgBarGraph.selectAll("rect")
+      var uBar = svgBarGraph.selectAll("rect")
         .data(data)
 			
       //merge data for smoothe transition when a new brush selection occurs
-      u.enter()
+      uBar.enter()
         .append("rect")
-        .merge(u)
+        .merge(uBar)
         .transition()
         .duration(1000)
-        .attr("x", function(d) {
-          return xBar(d.Club_Name);
+        .attr("x", function(dBar) {
+          return xBar(dBar.Club_Name);
         })
-        .attr("y", function(d) {
-          return yBar(d.Club_Value);
+        .attr("y", function(dBar) {
+          return yBar(dBar.Club_Value);
         })
         .attr("width", xBar.bandwidth())
-        .attr("height", function(d) {
-          return heightB - yBar(d.Club_Value);
+        .attr("height", function(dBar) {
+          return heightB - yBar(dBar.Club_Value);
         })
         .attr("transform", "translate(50,0)")
-        .attr("fill", function(d) {
-          return myColor2(d.Club_Value / 15)
+        .attr("fill", function(dBar) {
+          return myColor2(dBar.Club_Value / 15)
         })
 
       //remove the extra data bar when transitioning back to a smaller dataset
       //added a style() to reduce the opacity to 0 before removing the extra dataset bar
-      u.exit().transition().duration(1000).style("opacity", 0).remove();
+      uBar.exit().transition().duration(1000).style("opacity", 0).remove();
     }
 		
     //https://www.d3indepth.com/interaction/
     //function to check if an object is in the brush selection
-    function isInBrushExtent(d) {
+    function isInBrushExtent(dExtent) {
       return brushExtent &&
-        d.x >= brushExtent[0][0] &&
-        d.x <= brushExtent[1][0] &&
-        d.y >= brushExtent[0][1] &&
-        d.y <= brushExtent[1][1];
+        dExtent.x >= brushExtent[0][0] &&
+        dExtent.x <= brushExtent[1][0] &&
+        dExtent.y >= brushExtent[0][1] &&
+        dExtent.y <= brushExtent[1][1];
     }
   });

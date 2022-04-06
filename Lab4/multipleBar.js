@@ -1,8 +1,8 @@
 //https://www.kaggle.com/code/kerneler/starter-top-football-leagues-scorers-04eaf62e-6/data
-  var topScorer = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/DataFootball.csv";
+  const topScorer = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/DataFootball.csv";
 
   // set the dimensions and margins of the graph for messi or ronaldo
-  var marginMR = {
+  const marginMR = {
       top: 30,
       right: 30,
       bottom: 70,
@@ -12,7 +12,7 @@
     heightMR = 400 - marginMR.top - marginMR.bottom;
 	
   //set dimensions for pie chart
-  var widthPie = 350,
+  const widthPie = 350,
     heightPie = 300,
     radiusPie = Math.min(widthPie, heightPie) / 2;
 	
@@ -25,33 +25,33 @@
 		
     
     //filter the data to only get messi adn ronaldos goals for the years
-    var filteredMVR = data.filter(function(d) {
-      return d["Player Names"] == "Cristiano Ronaldo" || d["Player Names"] == "Lionel Messi"
+    const filteredMVR = data.filter(function(dMVR) {
+      return dMVR["Player Names"] == "Cristiano Ronaldo" || dMVR["Player Names"] == "Lionel Messi"
     })
-		
+
     //filter goals scored for each year of the data set
-    var filteredGoals2016 = filteredMVR.filter(function(d) {
-      return d.Year == 2016
+    const filteredGoals2016 = filteredMVR.filter(function(dGoals) {
+      return dGoals.Year == 2016
     })
-    var filteredGoals2017 = filteredMVR.filter(function(d) {
-      return d.Year == 2017
+    const filteredGoals2017 = filteredMVR.filter(function(dGoals) {
+      return dGoals.Year == 2017
     })
-    var filteredGoals2018 = filteredMVR.filter(function(d) {
-      return d.Year == 2018
+    const filteredGoals2018 = filteredMVR.filter(function(dGoals) {
+      return dGoals.Year == 2018
     })
-    var filteredGoals2019 = filteredMVR.filter(function(d) {
-      return d.Year == 2019
+    const filteredGoals2019 = filteredMVR.filter(function(dGoals) {
+      return dGoals.Year == 2019
     })
-    var filteredGoals2020 = filteredMVR.filter(function(d) {
-      return d.Year == 2020
+    var filteredGoals2020 = filteredMVR.filter(function(dGoals) {
+      return dGoals.Year == 2020
     })
 		
     
     //array to hold the players name
-    var playerNames = ["Lionel Messi", "Cristiano Ronaldo"]
+    const playerNames = ["Lionel Messi", "Cristiano Ronaldo"]
 
     // append the svg object to the div dataMR
-    var svgMR = d3.select(".dataMR")
+    const svgMR = d3.select(".dataMR")
       .append("svg")
       .attr("width", widthMR + marginMR.left + marginMR.right)
       .attr("height", heightMR + marginMR.top + marginMR.bottom)
@@ -60,7 +60,7 @@
         "translate(" + marginMR.left + "," + marginMR.top + ")");
 
     // append the svg object to the div dataMR
-    var svgPie = d3.select(".dataMR")
+    const svgPie = d3.select(".dataMR")
       .append("svg")
       .attr("width", widthPie)
       .attr("height", heightPie)
@@ -68,13 +68,13 @@
       .attr("transform", "translate(" + widthPie / 2 + "," + heightPie / 2.5 + ")");
 
     // Initialize the X axis for the bar graph of messi vs ronaldo
-    var xMR = d3.scaleBand()
+    const xMR = d3.scaleBand()
       .range([0, widthMR])
       .padding(0.2)
       .domain(playerNames);
 		
     //call and draw the x axis
-    var xAxisMR = svgMR.append("g")
+    const xAxisMR = svgMR.append("g")
       .attr("transform", "translate(0," + heightMR + ")")
       .attr("class", "XaxisMR")
       .call(d3.axisBottom(xMR));
@@ -135,8 +135,8 @@
     function updateBarGraph(data) {
 
       //update the domain of the left y axis
-      yMR.domain([0, d3.max(data.map(function(d) {
-        return +d.Goals
+      yMR.domain([0, d3.max(data.map(function(dYMR) {
+        return +dYMR.Goals
       })) + 2])
 
       //update the svg element of the left y Axis
@@ -145,11 +145,11 @@
         .duration(1000)
         .call(d3.axisLeft(yMR))
 			
-			//function to log the event of a mouse over a bar
-      function onMouseOverRM(d, i) {
-      	//call createPieChart function with the data stored inside
+		//function to log the event of a mouse over a bar
+      function onMouseOverRM(data, index) {
+        //call createPieChart function with the data stored inside
         //the current bar graph highlighted
-        createPieChart(i);
+        createPieChart(index);
 				
         //set the tooltips opacity to 1 to make it visible 
         rmTooltip.style("opacity", 1)
@@ -161,15 +161,15 @@
         //https://blog.hubspot.com/website/html-space
         //used to add white space inbetween text
         rmTooltip
-          .html("Club: " + i.Club + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-            "Name: " + i["Player Names"] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-            "League: " + i.League + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
-            "Matches Played: " + i.Matches_Played + "<br>" + "<br>" +
-            "Minutes Played: " + i.Mins + "<br>" +
-            "Shots: " + i.Shots + "<br>" +
-            "Shots Per Average Match: " + i["Shots Per Avg Match"] + "<br>" +
-            "xG Per Average Match: " + i["xG Per Avg Match"] + "<br>" +
-            "No. of Substitutions: " + i["Substitution "])
+          .html("Club: " + index.Club + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+            "Name: " + index["Player Names"] + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+            "League: " + index.League + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+            "Matches Played: " + index.Matches_Played + "<br>" + "<br>" +
+            "Minutes Played: " + index.Mins + "<br>" +
+            "Shots: " + index.Shots + "<br>" +
+            "Shots Per Average Match: " + index["Shots Per Avg Match"] + "<br>" +
+            "xG Per Average Match: " + index["xG Per Avg Match"] + "<br>" +
+            "No. of Substitutions: " + index["Substitution "])
           
            //added a class to the text val so that it can be removed in the onMouseout
         //function
@@ -179,20 +179,20 @@
           //top of the bar
           //adding the data "d" into the function as an arguement and returning 
           //the indexed data "i" as its x and y parameters
-          .attr('x', function(d) {
-            return xMR(i["Player Names"]) + xMR.bandwidth() / 2;
+         .attr('x', function(dGoals) {
+            return xMR(index["Player Names"]) + xMR.bandwidth() / 2;
           })
           .attr('y', function(d) {
-            return yMR(i.Goals);
+            return yMR(index.Goals);
           })
           .attr("text-anchor", "middle")
-          .text(function(d) {
-            return i.Goals;
+          .text(function(dGoals) {
+            return index.Goals;
           }); // Value of the text 
       }
 			
       //function for when the mouse isnt hovering over a bar in bar graph
-      function onMouseOutRM(d, i) {
+      function onMouseOutRM(data, index) {
       	//reduce opacity to 0 to make it not visible
         //remove the pie chart
         rmTooltip.transition().duration(500).style("opacity", 0)
@@ -203,27 +203,27 @@
           .remove()
       }
 			
-      //draw the bars 
-      var u = svgMR.selectAll("rect")
+     //draw the bars 
+      var uBarsMR = svgMR.selectAll("rect")
         .data(data)
 
-      u.enter()
+      uBarsMR.enter()
         .append("rect")
         .attr("class", "barsMR")
         .on("mouseover", onMouseOverRM)
         .on("mouseout", onMouseOutRM)
-        .merge(u)
+        .merge(uBarsMR)
         .transition()
         .duration(1000)
-        .attr("x", function(d) {
-          return xMR(d["Player Names"]);
+        .attr("x", function(dMR) {
+          return xMR(dMR["Player Names"]);
         })
-        .attr("y", function(d) {
-          return yMR(+d.Goals);
+        .attr("y", function(dMR) {
+          return yMR(+dMR.Goals);
         })
         .attr("width", xMR.bandwidth())
-        .attr("height", function(d) {
-          return heightMR - yMR(+d.Goals);
+        .attr("height", function(dMR) {
+          return heightMR - yMR(+dMR.Goals);
         })
         .attr("fill", "blue")
     }
@@ -246,28 +246,28 @@
       var goalRatio = [d3.format(".3n")(+data.Goals / +data.Matches_Played)]
 			
       //array to hold the values for the legend
-      var legend = ["xG (Expected Goals)", "Goals"]
+      const legend = ["xG (Expected Goals)", "Goals"]
 
       //move color pie and arc variables
-      var color = d3.scaleOrdinal().range(d3.schemeSet1);
-      var colorLegend = d3.scaleOrdinal().domain(legend).range(d3.schemeSet1);
+      const color = d3.scaleOrdinal().range(d3.schemeSet1);
+      const colorLegend = d3.scaleOrdinal().domain(legend).range(d3.schemeSet1);
 			
       //https://d3-graph-gallery.com/graph/custom_legend.html
       //create and draw legend squares
-      var size = 20
+      const size = 20
       svgPie.selectAll("mydots")
         .data(legend)
         .enter()
         .append("rect")
         .attr("class", "pieRM")
         .attr("x", 0)
-        .attr("y", function(d, i) {
-          return 120 + i * (size + 5)
+        .attr("y", function(dPie, iPie) {
+          return 120 + iPie * (size + 5)
         })
         .attr("width", size)
         .attr("height", size)
-        .style("fill", function(d) {
-          return colorLegend(d)
+        .style("fill", function(dPie) {
+          return colorLegend(dPie)
         })
 			
       //create and draw legend text
@@ -277,14 +277,14 @@
         .append("text")
         .attr("class", "pieRM")
         .attr("x", size * 1.2)
-        .attr("y", function(d, i) {
-          return 120 + i * (size + 5) + (size / 2)
+        .attr("y", function(dPie, iPie) {
+          return 120 + iPie * (size + 5) + (size / 2)
         })
-        .style("fill", function(d) {
-          return colorLegend(d)
+        .style("fill", function(dPie) {
+          return colorLegend(dPie)
         })
-        .text(function(d) {
-          return d
+        .text(function(dPie) {
+          return dPie
         })
         .attr("text-anchor", "left")
         .style("alignment-baseline", "middle")
@@ -307,24 +307,24 @@
       //enter method chaining to draw the arcs and the transition using attrTween
       pathPie.enter().append("path")
         .attr("class", "pieRM")
-        .attr("fill", function(d, i) {
-          return color(i);
+        .attr("fill", function(dPie, iPie) {
+          return color(iPie);
         })
         .attr("d", arc)
         .transition()
         .duration(1000)
-        .attrTween("d", function(d) {
-          var i = d3.interpolate(d.endAngle, d.startAngle);
+        .attrTween("d", function(dAngle) {
+          var intr = d3.interpolate(dAngle.endAngle, dAngle.startAngle);
           return function(t) {
-            d.startAngle = i(t);
-            return arc(d);
+            dAngle.startAngle = intr(t);
+            return arc(dAngle);
           }
         });
         
         //append goals text to the middle of the pie chart
       svgPie.append("text")
-        .attr("fill", function(d, i) {
-          return color(i+1);
+        .attr("fill", function(dText, iText) {
+          return color(iText+1);
         })
         .attr("class", "pieRM")
         //anchor the text to the middle of each arc
@@ -332,14 +332,14 @@
         .attr("y", heightPie/22 - 20)
         .data(expectedGoals)
         //return the value of each arc
-        .text(function(d, i) {
+        .text(function(dText, iText) {
           return expectedGoals[0] + " Goals";
         });
         
         //append expected goals to the middle of the pie chart
          svgPie.append("text")
-        .attr("fill", function(d, i) {
-          return color(i);
+        .attr("fill", function(dText, iText) {
+          return color(iText);
         })
         .attr("class", "pieRM")
         //anchor the text to the middle of each arc
@@ -347,7 +347,7 @@
         .attr("y", heightPie/20 - 7)
         .data(expectedGoals)
         //return the value of each arc
-        .text(function(d, i) {
+        .text(function(dText, iText) {
           return expectedGoals[1] + " xG";
         });
         
@@ -360,34 +360,34 @@
         .attr("y", heightPie/11 - 5)
         .data(goalRatio)
         //return the value of each arc
-        .text(function(d, i) {
+        .text(function(dText, iText) {
           return goalRatio[0] + " p/game";
         });
     }
 		
     //select the relevant button with its class name and then on click event
     //call clearBarGraph and updateBarGraph with the relevant filtered data set
-    d3.select(".MR2016").on("click", function(event, d) {
+    d3.select(".MR2016").on("click", function() {
       clearBarGraph();
       updateBarGraph(filteredGoals2016)
     })
 
-    d3.select(".MR2017").on("click", function(event, d) {
+    d3.select(".MR2017").on("click", function() {
       clearBarGraph();
       updateBarGraph(filteredGoals2017)
     })
 
-    d3.select(".MR2018").on("click", function(event, d) {
+    d3.select(".MR2018").on("click", function() {
       clearBarGraph();
       updateBarGraph(filteredGoals2018)
     })
 
-    d3.select(".MR2019").on("click", function(event, d) {
+    d3.select(".MR2019").on("click", function() {
       clearBarGraph();
       updateBarGraph(filteredGoals2019)
     })
 
-    d3.select(".MR2020").on("click", function(event, d) {
+    d3.select(".MR2020").on("click", function() {
       clearBarGraph();
       updateBarGraph(filteredGoals2020)
     })
