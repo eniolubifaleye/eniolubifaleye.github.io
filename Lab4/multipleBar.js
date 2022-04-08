@@ -195,8 +195,8 @@
       function onMouseOutRM(data, index) {
       	//reduce opacity to 0 to make it not visible
         //remove the pie chart
-        rmTooltip.transition().duration(500).style("opacity", 0)
-        d3.selectAll(".pieRM").transition().duration(500).style("opacity", 0).remove();
+        rmTooltip.style("opacity", 0)
+        d3.selectAll(".pieRM").remove();
           
         //select the class val, which is the text in onMouseOver and remove the text
         d3.selectAll('.val')

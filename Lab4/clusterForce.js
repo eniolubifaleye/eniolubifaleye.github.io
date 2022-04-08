@@ -14,7 +14,7 @@
     heightCircles = 550;
 
 	//create dimensions for the svg that will hold the bar graph
-  const widthB = 700 - margin.left - margin.right;
+  const widthB = 850 - margin.left - margin.right;
   const heightB = 400 - margin.top - margin.bottom;
 
   // setup svg with responsive svg
@@ -22,6 +22,7 @@
   const svgCircles = d3.select(".svgCircles").append("svg")
     .attr("width", widthCircles)
     .attr("height", heightCircles)
+    .attr("class", "clusterLayout")
     .append("g")
     .attr("viewBox", `0 0 ` + widthCircles + ` ` + heightCircles);
     
@@ -121,7 +122,7 @@
       return dColour.Market_Value_Of_Club_In_Millions / 15;
     }), d3.max(top20, function(dColour) {
       return dColour.Market_Value_Of_Club_In_Millions / 15;
-    })]).range(["red", "blue"]);
+    })]).range(["black", "blue"]);
 		
     //forcedSimulation from Lab 2 Exercise 28 - 32 initialized with the top20 data 
     //and the scaled down market value data
@@ -158,6 +159,7 @@
     //add the clubs name to each circle
     nodes.append("text")
       .attr("text-anchor", "middle")
+      .style("fill", "white")
       .text(function(dCircle) {
         return dCircle.Club_Name
       });
@@ -304,7 +306,7 @@
         return dColour2.Market_Value_Of_Club_In_Millions / 15;
       }), d3.max(top20, function(dColour2) {
         return dColour2.Market_Value_Of_Club_In_Millions / 15;
-      })]).range(["red", "blue"]);
+      })]).range(["black", "blue"]);
 
       //update the y domain
       yBar.domain([0, d3.max(data.map(function(dY) {

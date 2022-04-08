@@ -32,3 +32,17 @@ body{
     /* https://www.w3schools.com/css/tryit.asp?filename=trycss_font-family */
     font-family: "Lucida Console", "Courier New", monospace;
 }
+
+@media screen and (min-width: 100px) and (max-width: 199px)
+{
+    .textDiv{
+        width: 250px;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 299px)
+{
+    .textDiv{
+        width: 350px;
+    } 
+}
