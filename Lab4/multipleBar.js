@@ -80,12 +80,12 @@
       .call(d3.axisBottom(xMR));
 
     // Initialize the Y axis for the bar graph of messi vs ronaldo
-    var yMR = d3.scaleLinear()
+    let yMR = d3.scaleLinear()
       .range([heightMR, 0])
       .domain([0, 40]);
 		
     //call and draw the y axis
-    var yAxisMR = svgMR.append("g")
+    let yAxisMR = svgMR.append("g")
       .attr("class", "myYaxisMR")
       .call(d3.axisLeft(yMR));
 
@@ -120,7 +120,7 @@
 		
     //https://d3-graph-gallery.com/graph/connectedscatter_tooltip.html
     // create a tooltip for each hover over a players goals scored in bar graph
-    var rmTooltip = d3.select(".dataMR")
+    let rmTooltip = d3.select(".dataMR")
       .append("div")
       .attr("class", "rmTooltip")
       .style("opacity", 1)
@@ -204,7 +204,7 @@
       }
 			
      //draw the bars 
-      var uBarsMR = svgMR.selectAll("rect")
+      let uBarsMR = svgMR.selectAll("rect")
         .data(data)
 
       uBarsMR.enter()
@@ -239,11 +239,11 @@
     function createPieChart(data) {
 			
       //array to hold expected goals and goals value from bar hover
-      var expectedGoals = [+data.Goals, +data.xG]
+      let expectedGoals = [+data.Goals, +data.xG]
       
       //http://bl.ocks.org/zanarmstrong/05c1e95bf7aa16c4768e
       //create a variable to hold the goal ratio for each player and each season
-      var goalRatio = [d3.format(".3n")(+data.Goals / +data.Matches_Played)]
+      let goalRatio = [d3.format(".3n")(+data.Goals / +data.Matches_Played)]
 			
       //array to hold the values for the legend
       const legend = ["xG (Expected Goals)", "Goals"]
@@ -290,18 +290,18 @@
         .style("alignment-baseline", "middle")
 			
       //initialize pie chary
-      var pie = d3.pie()
+      let pie = d3.pie()
         .sort(null);
 		
       //create pie arcs
-      var arc = d3.arc()
+      let arc = d3.arc()
         .innerRadius(radiusPie - 100)
         .outerRadius(radiusPie - 50);
 
       //similar to what was done in Part 5 of the lab 2
       //create a variable called path pie which selects all the paths and binds them to the data to be
       //passed into the function
-      var pathPie = svgPie.selectAll("path")
+      let pathPie = svgPie.selectAll("path")
         .data(pie(expectedGoals));
 
       //enter method chaining to draw the arcs and the transition using attrTween

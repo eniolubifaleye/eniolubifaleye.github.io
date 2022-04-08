@@ -1,5 +1,5 @@
 //https://www.kaggle.com/datasets/sanjeetsinghnaik/football-club-market-value-2021
-  var clubWealth = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/club.csv";
+  const clubWealth = "https://raw.githubusercontent.com/eniolubifaleye/eniolubifaleye.github.io/main/Data/club.csv";
 
   // set the dimensions and margins of the graph 
   const margin = {
@@ -90,7 +90,7 @@
     });
 
     // X bottom axis for bar graph
-    var xBar = d3.scaleBand()
+    let xBar = d3.scaleBand()
       .range([0, widthB - 100], .1)
       .domain(top20.map(function(dX) {
         return dX.Club_Name;
@@ -98,18 +98,18 @@
       .padding(0.2);
 		
     //call and draw the x axis onto the bar graph svg
-    var xAxisBar = svgBarGraph.append("g")
+    let xAxisBar = svgBarGraph.append("g")
       .attr("class", "XaxisBar")
       .attr("transform", "translate(50," + heightB + ")")
       .call(d3.axisBottom(xBar).tickValues([]));
 
     // Add Y left axis for bar graph
-    var yBar = d3.scaleLinear()
+    let yBar = d3.scaleLinear()
       .domain([0, 200 + d3.max(yExtent)])
       .range([heightB, 0]);
 		
     //call and draw the y axis onto the bar graph svg
-    var yAxisBar = svgBarGraph.append("g")
+    let yAxisBar = svgBarGraph.append("g")
       .attr("class", "YaxisBar")
       .attr("transform", "translate(50,0)")
       .call(d3.axisLeft(yBar).tickValues([]));
@@ -126,7 +126,7 @@
 		
     //forcedSimulation from Lab 2 Exercise 28 - 32 initialized with the top20 data 
     //and the scaled down market value data
-    var simulation = d3.forceSimulation(top20)
+    let simulation = d3.forceSimulation(top20)
       .force('charge', d3.forceManyBody().strength(5))
       .force('center', d3.forceCenter(widthCircles / 2, heightCircles / 2))
       //increased the forceCollide value to 
@@ -137,7 +137,7 @@
 
     //https://stackoverflow.com/questions/20662192/how-to-place-text-on-the-circle-when-using-d3-js-force-layout
     //append the circles inside a g element
-    var nodes = svgCircles.selectAll(".node")
+    let nodes = svgCircles.selectAll(".node")
       .data(top20)
       .enter()
       .append('g')
@@ -204,10 +204,10 @@
 			
       // arrays which will be used to store data for bar chart and table
       //emptied once function is called again
-      var selectedData = [];
-      var clubNameArray = [];
-      var clubMarketValueArray = [];
-      var barChartData = [];
+      let selectedData = [];
+      let clubNameArray = [];
+      let clubMarketValueArray = [];
+      let barChartData = [];
 			
       //select all the circles
       d3.selectAll(".footballCircles").each(function(dSelect) {
@@ -268,7 +268,7 @@
       showTableColNames();
 			
        //to hold each row of name, market value and squad size for each data point from the circles
-      var d_row_filter = [d_row.Club_Name, d_row.Market_Value_Of_Club_In_Millions,
+      let d_row_filter = [d_row.Club_Name, d_row.Market_Value_Of_Club_In_Millions,
         d_row.Market_Value_Of_Top_18_Players_In_Millions,
         d_row.Squad_Size
       ];
@@ -329,7 +329,7 @@
         .call(d3.axisBottom(xBar));
 			  
       //draw the bars
-      var uBar = svgBarGraph.selectAll("rect")
+      let uBar = svgBarGraph.selectAll("rect")
         .data(data)
 			
       //merge data for smoothe transition when a new brush selection occurs

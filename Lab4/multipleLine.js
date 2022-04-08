@@ -80,7 +80,7 @@
 
     // Add an svg element for each group. The will be one beside each other and will 
     //go on the next row when no more room available
-    var svgMultiple = d3.select("#my_dataviz")
+    let svgMultiple = d3.select("#my_dataviz")
       .selectAll("uniqueChart")
       .data(groupPremier)
       .enter()
@@ -92,13 +92,13 @@
         `translate(${marginLines.leftLines},${marginLines.topLines})`);
 		
     //create variable to hold mapped season from dataset filteredPremier
-    var season = filteredPremier.map(function(dSeason) {
+    const season = filteredPremier.map(function(dSeason) {
       return dSeason.season
     })
     
     //https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array
     //remove duplicates to only have unique season values
-    var uniqueSeason = [...new Set(season)];
+    const uniqueSeason = [...new Set(season)];
 
     // X bottom axis for line graphs
     const xMultiple = d3.scalePoint()
@@ -112,14 +112,14 @@
       .call(d3.axisBottom(xMultiple));
 
     //Add Y axis for line graphs
-    var yMultiple = d3.scaleLinear()
+    let yMultiple = d3.scaleLinear()
       .domain([d3.max(filteredPremier, function(dYMultiple) {
         return +dYMultiple.rank;
       }), 1])
       .range([heightLines, 0]);
 		
     //call and draw y axis
-    var yAxisMultiple = svgMultiple.append("g")
+    let yAxisMultiple = svgMultiple.append("g")
       .attr("class", "YaxisMultiple")
       .call(d3.axisLeft(yMultiple));
       
@@ -148,7 +148,7 @@
       
     //https://d3-graph-gallery.com/graph/connectedscatter_tooltip.html
     // create a tooltip for each hover over a country
-    var clubTooltip = d3.select("#my_dataviz")
+    let clubTooltip = d3.select("#my_dataviz")
         .append("div")
         .attr("class", "clubTooltip")
         .style("opacity", 1)
