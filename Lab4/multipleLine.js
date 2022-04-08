@@ -22,7 +22,7 @@
     //in each league
     const filteredPremier = data.filter(function(dFilterP) {
       return dFilterP.competition == "Premier League" &&
-        (dFilterP.squad == "Manchester United" ||
+        (dFilterP.squad == "Manchester Utd" ||
           dFilterP.squad == "Manchester City" ||
           dFilterP.squad == "Chelsea" ||
           dFilterP.squad == "Arsenal" ||
@@ -144,7 +144,7 @@
 
     // color for each of the line graphs
     const color = d3.scaleOrdinal()
-      .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33'])
+      .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', 'black'])
       
     //https://d3-graph-gallery.com/graph/connectedscatter_tooltip.html
     // create a tooltip for each hover over a country
@@ -218,8 +218,6 @@
       function mouseOver(event, data) {
       	//make the tooltip for the datapoint visible
         clubTooltip.style("opacity", 1)
-        d3.select(".clubTooltip").transition().duration(500)
-          .style("display", "block");
       }
 			
       //function to log the event of a mouse moving over a data point
@@ -236,6 +234,12 @@
             "Losses: " + data.losses + "<br>" +
             "Goals for: " + data.goals_for + "<br>" +
             "Goals against: " + data.goals_against)
+          
+        //https://d3-graph-gallery.com/graph/interactivity_tooltip.html
+        //the tooltip is then positioned relative to the mouse position on the page
+        clubTooltip
+        	 .style("left", (event.pageX)+50 + "px")
+             .style("top", (event.pageY)-1050 + "px");
       }
 			
       //function set the opacity of the tooltip to 0

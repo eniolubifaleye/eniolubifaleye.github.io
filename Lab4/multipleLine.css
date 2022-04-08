@@ -26,10 +26,8 @@
   }
 
   .clubTooltip {
-    display: none;
+    display: inline;
+    position: fixed;
+    /* display: none; */
     width: 250px;
-    float: right;
-      margin: 50px auto;
-      margin-right: 340px;
-      margin-left: 50px;
   }
